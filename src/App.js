@@ -11,18 +11,18 @@ function App() {
 
   const handleClick = async () => {
     try {
-      const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', JSON.stringify({
-        message: text
-      }), {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      console.log('Response:', response.data);
+        const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
+            message: text
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        console.log('Response:', response.data);
     } catch (error) {
-      console.error('Error posting message:', error);
+        console.error('Error posting message:', error);
     }
-  };
+};
 
   return (
     <div className="App">
