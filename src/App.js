@@ -1,22 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import axios from 'axios';
 import './App.css';
 
 function App() {
+  const [text, setText] = useState('');
+
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
+
+  const handleClick = async () => {
+    try {
+      const response = await axios.post('YOUR_API_GATEWAY_URL', {
+        message: text
+      });
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error posting message:', error);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save Bossetti innocente to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <input 
+          type="text" 
+          value={text} 
+          onChange={handleChange} 
+          placeholder="Enter your message"
+        />
+        <button onClick={handleClick}>
+          Send Message
+        </button>
       </header>
     </div>
   );

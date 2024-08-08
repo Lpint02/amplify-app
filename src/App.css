@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+input[type="text"] {
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  background-color: #61dafb;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #21a1f1;
+}
