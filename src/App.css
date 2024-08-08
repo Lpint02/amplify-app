@@ -24,13 +24,15 @@ input[type="text"] {
   font-size: 24px; 
   width: 80%; 
   max-width: 600px; 
+  border: 3px solid #250189;
+  border-radius: 5px;
 } 
  
 button { 
   padding: 20px 40px; 
   margin: 20px; 
   font-size: 24px; 
-  background-color: #61dafb; 
+  background-color: #250189; 
   border: none; 
   color: white; 
   cursor: pointer; 
