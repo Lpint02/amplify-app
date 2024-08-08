@@ -11,7 +11,7 @@ function App() {
 
   const handleClick = async () => {
     try {
-      const response = await axios.post('YOUR_API_GATEWAY_URL', {
+      const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
         message: text
       });
       console.log('Response:', response.data);
