@@ -1,12 +1,28 @@
-import React, { useState } from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import axios from 'axios'; 
 import './App.css'; 
  
 function App() { 
   const [text, setText] = useState(''); 
+  const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState(''); 
   const [isError, setIsError] = useState(false); 
  
+  useEffect(() => {
+    // Configurazione WebSocket
+    const ws = new WebSocket('wss://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production/');
+
+    // Gestione dei messaggi ricevuti tramite WebSocket
+    ws.onmessage = (event) => {
+      const reversedMessage = event.data;
+      setMessages(prevMessages => [...prevMessages, reversedMessage]); // Aggiungi il messaggio ribaltato all'array dei messaggi
+    };
+
+    // Pulizia della connessione WebSocket quando il componente si smonta
+    return () => {
+      ws.close();
+    };
+  }, []); // L'array vuoto fa sì che l'effetto venga eseguito solo una volta al montaggio
   const handleChange = (event) => { 
     setText(event.target.value); 
   }; 
@@ -48,6 +64,11 @@ function App() {
             {responseMessage}
           </p>
         )}
+        <div className="messages-container">
+          {messages.map((msg, index) => (
+            <p key={index}>{msg}</p>
+          ))}
+        </div>
       </header> 
     </div> 
   ); 
