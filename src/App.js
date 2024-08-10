@@ -14,8 +14,13 @@ function App() {
 
     // Gestione dei messaggi ricevuti tramite WebSocket
     ws.onmessage = (event) => {
-      const reversedMessage = event.data;
+      const reversedMessage = JSON.parse(event.data).message;
       setMessages(prevMessages => [...prevMessages, reversedMessage]); // Aggiungi il messaggio ribaltato all'array dei messaggi
+    };
+
+    // Gestione dell'errore della connessione WebSocket
+    ws.onerror = (event) => {
+      console.error('WebSocket error:', event);
     };
 
     // Pulizia della connessione WebSocket quando il componente si smonta
