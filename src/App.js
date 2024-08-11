@@ -11,66 +11,65 @@ function App() {
 
   useEffect(() => {
     // Configurazione WebSocket
-    const ws = new WebSocket('wss://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/production/');
+    const ws = new WebSocket('wss://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production//');
 
-    // Gestione dei messaggi ricevuti tramite WebSocket
-    ws.onmessage = (event) => {
-      const reversedMessage = JSON.parse(event.data).message;
-      setMessages(prevMessages => [...prevMessages, reversedMessage]); // Aggiungi il messaggio ribaltato all'array dei messaggi
+    ws.onopen = () => {
+      console.log('WebSocket connection established');
     };
 
-    // Gestione dell'errore della connessione WebSocket
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.connectionId) {
+        // Assegna il connectionId al client
+        setConnectionId(data.connectionId);
+      } else if (data.message) {
+        // Aggiungi il messaggio ribaltato all'array dei messaggi
+        setMessages(prevMessages => [...prevMessages, data.message]);
+      }
+    };
+
     ws.onerror = (event) => {
       console.error('WebSocket error:', event);
     };
 
-    // Gestione della connessione WebSocket
-    ws.onopen = () => {
-      console.log('WebSocket connection established.');
-    };
-
-    // Assegna il connectionId al client
-    ws.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.connectionId) {
-        setConnectionId(data.connectionId);
-      }
+    ws.onclose = () => {
+      console.log('WebSocket connection closed');
     };
 
     return () => {
       ws.close();
     };
-  }, []); // L'array vuoto fa sì che l'effetto venga eseguito solo una volta al montaggio
+  }, []);
 
-  const handleChange = (event) => {
-    setText(event.target.value);
-  };
+  const handleChange = (event) => { 
+    setText(event.target.value); 
+  }; 
 
   const handleClick = async () => { 
-    if (connectionId) {
-      try { 
+    try {
+      if (connectionId) { 
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', { 
           message: text,
-          connectionId: connectionId // Invia il connectionId con il messaggio
-        }, { 
+          connectionId: connectionId
+      }, { 
           headers: { 
-            'Content-Type': 'application/json' 
+              'Content-Type': 'application/json' 
           } 
-        }); 
-        setResponseMessage('Messaggio inviato con successo!'); 
-        setIsError(false); 
-        setText(''); // Svuota la casella di testo
-        console.log('Response:', response.data); 
-      } catch (error) { 
-        setResponseMessage('Errore durante l\'invio del messaggio.'); 
-        setIsError(true); 
-        console.error('Error posting message:', error); 
-      } 
-    } else {
-      setResponseMessage('Connection ID non disponibile.');
+      }); 
+      setResponseMessage('Messaggio inviato con successo!'); 
+      setIsError(false); 
+      setText(''); 
+  } else {
+      setResponseMessage('Connection ID non disponibile. Assicurati che la connessione WebSocket sia stabilita.');
       setIsError(true);
-    }
-  }; 
+  }
+} catch (error) { 
+  console.error('Errore durante l\'invio del messaggio:', error); 
+  setResponseMessage('Errore durante l\'invio del messaggio'); 
+  setIsError(true); 
+} 
+};       
 
   return (
     <div className="App">
