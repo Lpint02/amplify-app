@@ -7,31 +7,32 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  const [connectionId, setConnectionId] = useState(null); // Stato per salvare il connectionId
+  const [connectionId, setConnectionId] = useState(null); // Stato per conservare il connectionId
 
   useEffect(() => {
     // Configurazione WebSocket
-    const ws = new WebSocket('wss://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production/');
+    const ws = new WebSocket('wss://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/production/');
 
-    // Gestione della connessione aperta
-    ws.onopen = (event) => {
-      const connectionId = ws.url.split('/').pop(); // Estrai il connectionId dall'URL della WebSocket (oppure usa un altro metodo per ottenere il connectionId se necessario)
-      setConnectionId(connectionId); // Salva il connectionId nello stato
-      console.log('WebSocket connected with ID:', connectionId);
+    ws.onopen = () => {
+      console.log('WebSocket connection opened');
+      // Salva il connectionId dal server WebSocket se disponibile
     };
 
-    // Gestione dei messaggi ricevuti tramite WebSocket
     ws.onmessage = (event) => {
-      const reversedMessage = JSON.parse(event.data).message;
-      setMessages(prevMessages => [...prevMessages, reversedMessage]); // Aggiungi il messaggio ribaltato all'array dei messaggi
+      const data = JSON.parse(event.data);
+      if (data.connectionId) {
+        // Se il server WebSocket invia il connectionId, salvalo
+        setConnectionId(data.connectionId);
+      } else if (data.message) {
+        const reversedMessage = data.message;
+        setMessages(prevMessages => [...prevMessages, reversedMessage]); // Aggiungi il messaggio ribaltato all'array dei messaggi
+      }
     };
 
-    // Gestione dell'errore della connessione WebSocket
     ws.onerror = (event) => {
       console.error('WebSocket error:', event);
     };
 
-    // Pulizia della connessione WebSocket quando il componente si smonta
     return () => {
       ws.close();
     };
@@ -42,22 +43,15 @@ function App() {
   };
 
   const handleClick = async () => {
-    if (!connectionId) {
-      setResponseMessage('Connection ID non disponibile.');
-      setIsError(true);
-      return;
-    }
-
     try {
-      const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
+      const response = await axios.post('https://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/prod/sendmessage', {
         message: text,
-        connectionId: connectionId // Includi il connectionId nel corpo della richiesta
+        connectionId: connectionId // Invia il connectionId con il messaggio
       }, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-
       setResponseMessage('Messaggio inviato con successo!');
       setIsError(false);
       setText(''); // Svuota la casella di testo
