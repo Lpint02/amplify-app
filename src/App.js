@@ -8,13 +8,15 @@ function App() {
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [connectionId, setConnectionId] = useState(null); // Stato per conservare il connectionId
+  const [isConnected, setIsConnected] = useState(false); // Stato per tracciare la connessione WebSocket
 
   useEffect(() => {
     // Configurazione WebSocket
-    const ws = new WebSocket('https://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production/');
+    const ws = new WebSocket('wss://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production/');
 
     ws.onopen = () => {
       console.log('WebSocket connection established');
+      setIsConnected(true); // Imposta lo stato come connesso
     };
 
     ws.onmessage = (event) => {
@@ -31,10 +33,12 @@ function App() {
 
     ws.onerror = (event) => {
       console.error('WebSocket error:', event);
+      setIsConnected(false); // Imposta lo stato come non connesso in caso di errore
     };
 
     ws.onclose = () => {
       console.log('WebSocket connection closed');
+      setIsConnected(false); // Imposta lo stato come non connesso quando la connessione si chiude
     };
 
     return () => {
@@ -42,34 +46,34 @@ function App() {
     };
   }, []);
 
-  const handleChange = (event) => { 
-    setText(event.target.value); 
-  }; 
+  const handleChange = (event) => {
+    setText(event.target.value);
+  };
 
-  const handleClick = async () => { 
+  const handleClick = async () => {
     try {
-      if (connectionId) { 
-        const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', { 
+      if (connectionId) {
+        const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
           message: text,
           connectionId: connectionId
-      }, { 
-          headers: { 
-              'Content-Type': 'application/json' 
-          } 
-      }); 
-      setResponseMessage('Messaggio inviato con successo!'); 
-      setIsError(false); 
-      setText(''); 
-  } else {
-      setResponseMessage('Connection ID non disponibile. Assicurati che la connessione WebSocket sia stabilita.');
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        setResponseMessage('Messaggio inviato con successo!');
+        setIsError(false);
+        setText('');
+      } else {
+        setResponseMessage('Connection ID non disponibile. Assicurati che la connessione WebSocket sia stabilita.');
+        setIsError(true);
+      }
+    } catch (error) {
+      console.error('Errore durante l\'invio del messaggio:', error);
+      setResponseMessage('Errore durante l\'invio del messaggio');
       setIsError(true);
-  }
-} catch (error) { 
-  console.error('Errore durante l\'invio del messaggio:', error); 
-  setResponseMessage('Errore durante l\'invio del messaggio'); 
-  setIsError(true); 
-} 
-};       
+    }
+  };
 
   return (
     <div className="App">
@@ -79,8 +83,9 @@ function App() {
           value={text}
           onChange={handleChange}
           placeholder="Enter your message"
+          disabled={!isConnected || !connectionId} // Disabilita il campo di input se non connesso
         />
-        <button onClick={handleClick}>
+        <button onClick={handleClick} disabled={!isConnected || !connectionId}>
           Send Message
         </button>
         {responseMessage && (
