@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     // Configurazione WebSocket
-    const ws = new WebSocket('https://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production//');
+    const ws = new WebSocket('https://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production/');
 
     ws.onopen = () => {
       console.log('WebSocket connection established');
