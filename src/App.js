@@ -11,7 +11,7 @@ function App() {
 
   useEffect(() => {
     // Configurazione WebSocket
-    const ws = new WebSocket('wss://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/production/');
+    const ws = new WebSocket('wss://ojyb488ldd.execute-api.us-east-1.amazonaws.com/production/');
 
     ws.onopen = () => {
       console.log('WebSocket connection opened');
@@ -44,7 +44,7 @@ function App() {
 
   const handleClick = async () => {
     try {
-      const response = await axios.post('https://YOUR_API_ID.execute-api.YOUR_REGION.amazonaws.com/prod/sendmessage', {
+      const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
         message: text,
         connectionId: connectionId // Invia il connectionId con il messaggio
       }, {
