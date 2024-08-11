@@ -8,6 +8,7 @@ function App() {
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [connectionId, setConnectionId] = useState(null); // Stato per conservare il connectionId
+  const [sessionId, setSessionId] = useState(null); // Stato per conservare il sessionId
   const [isConnected, setIsConnected] = useState(false); // Stato per tracciare la connessione WebSocket
 
   useEffect(() => {
@@ -25,6 +26,9 @@ function App() {
       if (data.connectionId) {
         // Assegna il connectionId al client
         setConnectionId(data.connectionId);
+      } else if (data.sessionId) {
+        // Assegna il sessionId al client
+        setSessionId(data.sessionId);
       } else if (data.message) {
         // Aggiungi il messaggio ribaltato all'array dei messaggi
         setMessages(prevMessages => [...prevMessages, data.message]);
@@ -52,10 +56,11 @@ function App() {
 
   const handleClick = async () => {
     try {
-      if (connectionId) {
+      if (text && sessionId) {
+        // Invia il messaggio all'endpoint 'enqueue' con sessionId
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
           message: text,
-          connectionId: connectionId
+          sessionId: sessionId
         }, {
           headers: {
             'Content-Type': 'application/json'
@@ -65,7 +70,7 @@ function App() {
         setIsError(false);
         setText('');
       } else {
-        setResponseMessage('Connection ID non disponibile. Assicurati che la connessione WebSocket sia stabilita.');
+        setResponseMessage('Session ID non disponibile. Assicurati che la connessione WebSocket sia stabilita.');
         setIsError(true);
       }
     } catch (error) {
@@ -83,9 +88,9 @@ function App() {
           value={text}
           onChange={handleChange}
           placeholder="Enter your message"
-          disabled={!isConnected || !connectionId} // Disabilita il campo di input se non connesso
+          disabled={!isConnected || !sessionId} // Disabilita il campo di input se non connesso
         />
-        <button onClick={handleClick} disabled={!isConnected || !connectionId}>
+        <button onClick={handleClick} disabled={!isConnected || !sessionId}>
           Send Message
         </button>
         {responseMessage && (
