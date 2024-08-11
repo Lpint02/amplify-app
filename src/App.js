@@ -7,7 +7,6 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  const [connectionId, setConnectionId] = useState(null); // Stato per conservare il connectionId
   const [sessionId, setSessionId] = useState(null); // Stato per conservare il sessionId
   const [isConnected, setIsConnected] = useState(false); // Stato per tracciare la connessione WebSocket
 
@@ -23,10 +22,7 @@ function App() {
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
 
-      if (data.connectionId) {
-        // Assegna il connectionId al client
-        setConnectionId(data.connectionId);
-      } else if (data.sessionId) {
+      if (data.sessionId) {
         // Assegna il sessionId al client
         setSessionId(data.sessionId);
       } else if (data.message) {
