@@ -84,9 +84,8 @@ function App() {
           value={text}
           onChange={handleChange}
           placeholder="Enter your message"
-          disabled={!isConnected || !sessionId} // Disabilita il campo di input se non connesso
         />
-        <button onClick={handleClick} disabled={!isConnected || !sessionId}>
+        <button onClick={handleClick}>
           Send Message
         </button>
         {responseMessage && (
