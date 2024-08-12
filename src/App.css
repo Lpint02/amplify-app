@@ -52,6 +52,11 @@ button:hover {
   font-size: 18px; 
 }
 
+.title {
+  color: #250189; /* Stesso colore del bottone */
+  margin-bottom: 20px;
+}
+
 /* Contenitore dei messaggi */
 .messages-container {
   width: 80%;

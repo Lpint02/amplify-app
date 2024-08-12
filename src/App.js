@@ -73,7 +73,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>{title}</h1>
+        <h1 className="title">{title}</h1>
         <input
           type="text"
           value={text}
