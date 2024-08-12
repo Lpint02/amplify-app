@@ -8,6 +8,7 @@ function App() {
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [title, setTitle] = useState('Insert the word to reverse');
+  const [isConnected, setIsConnected] = useState(false); 
 
   useEffect(() => {
     // Configurazione WebSocket
