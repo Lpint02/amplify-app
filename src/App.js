@@ -7,7 +7,6 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  const [sessionId, setSessionId] = useState(null); // Stato per conservare il sessionId
   const [isConnected, setIsConnected] = useState(false); // Stato per tracciare la connessione WebSocket
 
   useEffect(() => {
@@ -21,11 +20,8 @@ function App() {
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-
-      if (data.sessionId) {
-        // Assegna il sessionId al client
-        setSessionId(data.sessionId);
-      } else if (data.message) {
+      
+      if (data.message) {
         // Aggiungi il messaggio ribaltato all'array dei messaggi
         setMessages(prevMessages => [...prevMessages, data.message]);
       }
@@ -52,11 +48,10 @@ function App() {
 
   const handleClick = async () => {
     try {
-      if (text && sessionId) {
-        // Invia il messaggio all'endpoint 'enqueue' con sessionId
+      if (text) {
+        // Invia il messaggio all'endpoint 'enqueue'
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
-          message: text,
-          sessionId: sessionId
+          message: text
         }, {
           headers: {
             'Content-Type': 'application/json'
@@ -66,7 +61,7 @@ function App() {
         setIsError(false);
         setText('');
       } else {
-        setResponseMessage('Session ID non disponibile. Assicurati che la connessione WebSocket sia stabilita.');
+        setResponseMessage('Il campo del messaggio è vuoto.');
         setIsError(true);
       }
     } catch (error) {
