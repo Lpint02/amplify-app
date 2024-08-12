@@ -7,11 +7,10 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  const [title, setTitle] = useState('Insert the word to reverse');
-  const [isConnected, setIsConnected] = useState(false); 
+  const [isConnected, setIsConnected] = useState(false); // Traccia lo stato della connessione WebSocket
+  const [title, setTitle] = useState('Insert the word to reverse'); // Stato per il titolo
 
   useEffect(() => {
-    // Configurazione WebSocket
     const ws = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production/');
 
     ws.onopen = () => {
@@ -23,7 +22,6 @@ function App() {
       const data = JSON.parse(event.data);
       
       if (data.message) {
-        // Aggiungi il messaggio ribaltato all'array dei messaggi
         setMessages(prevMessages => [...prevMessages, data.message]);
       }
     };
@@ -45,13 +43,12 @@ function App() {
 
   const handleChange = (event) => {
     setText(event.target.value);
-    setTitle('Insert another word');
+    setTitle('Insert another word'); // Aggiorna il titolo quando viene inserita una parola
   };
 
   const handleClick = async () => {
     try {
       if (text) {
-        // Invia il messaggio all'endpoint 'enqueue'
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
           message: text
         }, {
@@ -59,16 +56,16 @@ function App() {
             'Content-Type': 'application/json'
           }
         });
-        setResponseMessage('Messaggio inviato con successo!');
+        setResponseMessage('Message sent successfully!');
         setIsError(false);
         setText('');
       } else {
-        setResponseMessage('Il campo del messaggio è vuoto.');
+        setResponseMessage('The message field is empty.');
         setIsError(true);
       }
     } catch (error) {
-      console.error('Errore durante l\'invio del messaggio:', error);
-      setResponseMessage('Errore durante l\'invio del messaggio');
+      console.error('Error sending message:', error);
+      setResponseMessage('Error sending message');
       setIsError(true);
     }
   };
@@ -76,6 +73,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <h1>{title}</h1>
         <input
           type="text"
           value={text}
@@ -90,14 +88,17 @@ function App() {
             {responseMessage}
           </p>
         )}
-        <div className="messages-container">
-          <h2>Reversed words:</h2>
+        <div className={`messages-container ${messages.length === 0 ? 'empty' : ''}`}>
+        <h2>Reversed words:</h2>
           <ul>
             {messages.map((msg, index) => (
               <li key={index}>{msg}</li>
             ))}
           </ul>
         </div>
+        {!isConnected && (
+          <p className="error-message">WebSocket is disconnected. Please refresh the page.</p>
+        )}
       </header>
     </div>
   );
