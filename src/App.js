@@ -7,7 +7,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  const [isConnected, setIsConnected] = useState(false); // Stato per tracciare la connessione WebSocket
+  const [title, setTitle] = useState('Insert the word to reverse');
 
   useEffect(() => {
     // Configurazione WebSocket
@@ -44,6 +44,7 @@ function App() {
 
   const handleChange = (event) => {
     setText(event.target.value);
+    setTitle('Insert another word');
   };
 
   const handleClick = async () => {
@@ -89,9 +90,12 @@ function App() {
           </p>
         )}
         <div className="messages-container">
-          {messages.map((msg, index) => (
-            <p key={index}>{msg}</p>
-          ))}
+          <h2>Reversed words:</h2>
+          <ul>
+            {messages.map((msg, index) => (
+              <li key={index}>{msg}</li>
+            ))}
+          </ul>
         </div>
       </header>
     </div>
