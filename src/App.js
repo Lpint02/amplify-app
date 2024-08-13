@@ -7,8 +7,9 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  const [isConnected, setIsConnected] = useState(false); // Traccia lo stato della connessione WebSocket
-  const [title, setTitle] = useState('Insert the word to reverse'); // Stato per il titolo
+  const [isConnected, setIsConnected] = useState(false); // Track WebSocket connection status
+  const [title, setTitle] = useState('Insert the word to reverse');
+  const [showConnectedMessage, setShowConnectedMessage] = useState(false); // New state for the connected message
 
   useEffect(() => {
     const ws = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production/');
@@ -16,6 +17,7 @@ function App() {
     ws.onopen = () => {
       console.log('WebSocket connection established');
       setIsConnected(true); // Imposta lo stato come connesso
+      setShowConnectedMessage(true); // Show connected message when connected
     };
 
     ws.onmessage = (event) => {
@@ -43,6 +45,7 @@ function App() {
 
   const handleChange = (event) => {
     setText(event.target.value);
+    setShowConnectedMessage(false); // Hide connected message when typing
   };
 
   const handleClick = async () => {
@@ -59,14 +62,26 @@ function App() {
         setIsError(false);
         setText('');
         setTitle('Insert another word');
+        setTimeout(() => {
+          setResponseMessage('');
+        }, 20000);
       } else {
         setResponseMessage('The message field is empty.');
         setIsError(true);
+
+        // Clear the response message after 20 seconds
+        setTimeout(() => {
+          setResponseMessage('');
+        }, 20000);
       }
     } catch (error) {
       console.error('Error sending message:', error);
       setResponseMessage('Error sending message');
       setIsError(true);
+      // Clear the response message after 20 seconds
+      setTimeout(() => {
+        setResponseMessage('');
+      }, 20000);
     }
   };
 
@@ -74,13 +89,19 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1 className="title">{title}</h1>
+        {showConnectedMessage && (
+          <p className="connected-message">
+            Websocket connection established, now you can insert your word
+          </p>
+        )}
         <input
           type="text"
           value={text}
           onChange={handleChange}
           placeholder="Enter your message"
+          disabled={!isConnected}
         />
-        <button onClick={handleClick}>
+        <button onClick={handleClick} disabled={!isConnected}>
           Send Message
         </button>
         {responseMessage && (
