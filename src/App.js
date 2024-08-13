@@ -8,6 +8,7 @@ function App() {
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [isConnected, setIsConnected] = useState(false); // Track WebSocket connection status
+  const [connectionId, setConnectionId] = useState(null);
   const [title, setTitle] = useState('Insert the word to reverse');
   const [showConnectedMessage, setShowConnectedMessage] = useState(false); // New state for the connected message
 
@@ -22,8 +23,12 @@ function App() {
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      
-      if (data.message) {
+
+      if (data.connectionId) {
+        // Salva il connectionId ricevuto dal server
+        setConnectionId(data.connectionId);
+        console.log('Received connectionId:', data.connectionId);
+      } else if (data.message) {
         setMessages(prevMessages => [...prevMessages, data.message]);
       }
     };
@@ -50,18 +55,15 @@ function App() {
 
   const handleClick = async () => {
     try {
-      if (text) {
-        const connectionId = await getConnectionId(); // Ottieni il connectionId
-        console.log('Connection ID:', connectionId); // Log per debug
+      if (text && connectionId) { // Verifica che il connectionId sia disponibile
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
           message: text,
-          connectionId: connectionId  // Invia anche il connectionId
+          connectionId: connectionId  // Invia il connectionId
         }, {
           headers: {
             'Content-Type': 'application/json'
           }
         });
-        console.log('Response:', response); // Log per debug
         setResponseMessage('Message sent successfully!');
         setIsError(false);
         setText('');
@@ -70,38 +72,23 @@ function App() {
           setResponseMessage('');
         }, 20000);
       } else {
-        setResponseMessage('The message field is empty.');
+        setResponseMessage('The message field is empty or connectionId is not available.');
         setIsError(true);
-    
+  
         setTimeout(() => {
           setResponseMessage('');
         }, 20000);
       }
     } catch (error) {
-      console.error('Error sending message:', error.response ? error.response.data : error); // Log dettagliato dell'errore
+      console.error('Error sending message:', error);
       setResponseMessage('Error sending message');
       setIsError(true);
-    
+  
       setTimeout(() => {
         setResponseMessage('');
       }, 20000);
     }
   };
-  
-  
-  // Funzione per ottenere il connectionId
-  const getConnectionId = () => {
-    return new Promise((resolve, reject) => {
-      const ws = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production/');
-      ws.onopen = () => {
-        resolve(ws._connectionId); // Ottieni il connectionId dal WebSocket
-      };
-      ws.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-  
 
   return (
     <div className="App">
