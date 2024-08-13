@@ -51,8 +51,10 @@ function App() {
   const handleClick = async () => {
     try {
       if (text) {
+        const connectionId = await getConnectionId(); // Ottieni il connectionId
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
-          message: text
+          message: text,
+          connectionId: connectionId  // Invia anche il connectionId
         }, {
           headers: {
             'Content-Type': 'application/json'
@@ -68,8 +70,7 @@ function App() {
       } else {
         setResponseMessage('The message field is empty.');
         setIsError(true);
-
-        // Clear the response message after 20 seconds
+  
         setTimeout(() => {
           setResponseMessage('');
         }, 20000);
@@ -78,12 +79,26 @@ function App() {
       console.error('Error sending message:', error);
       setResponseMessage('Error sending message');
       setIsError(true);
-      // Clear the response message after 20 seconds
+  
       setTimeout(() => {
         setResponseMessage('');
       }, 20000);
     }
   };
+  
+  // Funzione per ottenere il connectionId
+  const getConnectionId = () => {
+    return new Promise((resolve, reject) => {
+      const ws = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production/');
+      ws.onopen = () => {
+        resolve(ws._connectionId); // Ottieni il connectionId dal WebSocket
+      };
+      ws.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+  
 
   return (
     <div className="App">
