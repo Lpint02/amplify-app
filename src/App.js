@@ -52,6 +52,7 @@ function App() {
     try {
       if (text) {
         const connectionId = await getConnectionId(); // Ottieni il connectionId
+        console.log('Connection ID:', connectionId); // Log per debug
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
           message: text,
           connectionId: connectionId  // Invia anche il connectionId
@@ -60,6 +61,7 @@ function App() {
             'Content-Type': 'application/json'
           }
         });
+        console.log('Response:', response); // Log per debug
         setResponseMessage('Message sent successfully!');
         setIsError(false);
         setText('');
@@ -70,21 +72,22 @@ function App() {
       } else {
         setResponseMessage('The message field is empty.');
         setIsError(true);
-  
+    
         setTimeout(() => {
           setResponseMessage('');
         }, 20000);
       }
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error sending message:', error.response ? error.response.data : error); // Log dettagliato dell'errore
       setResponseMessage('Error sending message');
       setIsError(true);
-  
+    
       setTimeout(() => {
         setResponseMessage('');
       }, 20000);
     }
   };
+  
   
   // Funzione per ottenere il connectionId
   const getConnectionId = () => {
