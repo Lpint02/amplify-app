@@ -43,7 +43,6 @@ function App() {
 
   const handleChange = (event) => {
     setText(event.target.value);
-    setTitle('Insert another word'); // Aggiorna il titolo quando viene inserita una parola
   };
 
   const handleClick = async () => {
@@ -59,6 +58,7 @@ function App() {
         setResponseMessage('Message sent successfully!');
         setIsError(false);
         setText('');
+        setTitle('Insert another word');
       } else {
         setResponseMessage('The message field is empty.');
         setIsError(true);
@@ -88,14 +88,16 @@ function App() {
             {responseMessage}
           </p>
         )}
-        <div className={`messages-container ${messages.length === 0 ? 'empty' : ''}`}>
-        {messages.length > 0 && <h2>Reversed words:</h2>} 
+        {messages.length > 0 && (
+        <div className="messages-container">
+          <h2>Reversed words:</h2>
           <ul>
             {messages.map((msg, index) => (
               <li key={index}>{msg}</li>
             ))}
           </ul>
         </div>
+      )}
         {!isConnected && (
           <p className="error-message">WebSocket is disconnected. Please refresh the page.</p>
         )}
