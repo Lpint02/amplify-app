@@ -89,7 +89,7 @@ function App() {
           </p>
         )}
         <div className={`messages-container ${messages.length === 0 ? 'empty' : ''}`}>
-        <h2>Reversed words:</h2>
+        {messages.length > 0 && <h2>Reversed words:</h2>} 
           <ul>
             {messages.map((msg, index) => (
               <li key={index}>{msg}</li>
