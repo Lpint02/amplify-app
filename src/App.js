@@ -55,6 +55,7 @@ function App() {
 
   const handleClick = async () => {
     try {
+      console.log('Attempting to send message with connectionId:', connectionId);
       if (text && connectionId) { // Verifica che il connectionId sia disponibile
         console.log('Sending message with connectionId:', connectionId); // Aggiungi questo log
 
