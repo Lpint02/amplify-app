@@ -23,7 +23,7 @@ function App() {
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-
+      console.log('Received data:', data);
       if (data.connectionId) {
         // Salva il connectionId ricevuto dal server
         setConnectionId(data.connectionId);
@@ -56,6 +56,8 @@ function App() {
   const handleClick = async () => {
     try {
       if (text && connectionId) { // Verifica che il connectionId sia disponibile
+        console.log('Sending message with connectionId:', connectionId); // Aggiungi questo log
+
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
           message: text,
           connectionId: connectionId  // Invia il connectionId
