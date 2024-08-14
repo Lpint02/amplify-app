@@ -17,13 +17,17 @@ function App() {
 
     ws.onopen = () => {
       console.log('WebSocket connection established');
-      setIsConnected(true); // Imposta lo stato come connesso
-      setShowConnectedMessage(true); // Show connected message when connected
+      setIsConnected(true);
+      setShowConnectedMessage(true);
+
+      // Richiedi il connectionId subito dopo la connessione
+      ws.send(JSON.stringify({ action: 'requestConnectionId' }));
     };
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
       console.log('Received data:', data);
+      
       if (data.connectionId) {
         // Salva il connectionId ricevuto dal server
         setConnectionId(data.connectionId);
