@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import './App.css';
 
 function App() {
@@ -8,31 +8,35 @@ function App() {
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
-  const [connectionId, setConnectionId] = useState(null);
-  const [userId, setUserId] = useState(null);
+  const [title, setTitle] = useState('Insert the word to reverse');
+  const [showConnectedMessage, setShowConnectedMessage] = useState(false);
+  const [connectionId, setConnectionId] = useState('');
 
   useEffect(() => {
-    const generatedUserId = uuidv4();
-    setUserId(generatedUserId);
-
     const ws = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
 
-    ws.onopen = () => {
+    ws.onopen = async () => {
       console.log('WebSocket connection established');
       setIsConnected(true);
+      setShowConnectedMessage(true);
 
-      // Invia il userId subito dopo la connessione
-      ws.send(JSON.stringify({ action: 'register', userId: generatedUserId }));
+      // Recupera il connectionId dal server
+      try {
+        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod', {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        setConnectionId(response.data.connectionId);
+      } catch (error) {
+        console.error('Error fetching connectionId:', error);
+      }
     };
 
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      console.log('Received data:', data);
-
-      if (data.connectionId) {
-        setConnectionId(data.connectionId);
-        console.log('Received connectionId:', data.connectionId);
-      } else if (data.message) {
+      
+      if (data.message) {
         setMessages(prevMessages => [...prevMessages, data.message]);
       }
     };
@@ -54,6 +58,7 @@ function App() {
 
   const handleChange = (event) => {
     setText(event.target.value);
+    setShowConnectedMessage(false);
   };
 
   const handleClick = async () => {
@@ -70,20 +75,36 @@ function App() {
         setResponseMessage('Message sent successfully!');
         setIsError(false);
         setText('');
+        setTitle('Insert another word');
+        setTimeout(() => {
+          setResponseMessage('');
+        }, 20000);
       } else {
-        setResponseMessage('The message field is empty or connectionId is not available.');
+        setResponseMessage('The message field is empty.');
         setIsError(true);
+        setTimeout(() => {
+          setResponseMessage('');
+        }, 20000);
       }
     } catch (error) {
       console.error('Error sending message:', error);
       setResponseMessage('Error sending message');
       setIsError(true);
+      setTimeout(() => {
+        setResponseMessage('');
+      }, 20000);
     }
   };
 
   return (
     <div className="App">
       <header className="App-header">
+      <h1 className="title">{title}</h1>
+        {showConnectedMessage && (
+          <p className="connected-message">
+            Websocket connection established, now you can insert your word
+          </p>
+        )}
         <input
           type="text"
           value={text}
