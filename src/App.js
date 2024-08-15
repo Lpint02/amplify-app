@@ -22,7 +22,7 @@ function App() {
 
       // Recupera il connectionId dal server
       try {
-        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod', {
+        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
           headers: {
             'Content-Type': 'application/json'
           }
