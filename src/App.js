@@ -14,47 +14,40 @@ function App() {
 
   useEffect(() => {
     const ws = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
-
-    ws.onopen = async () => {
+  
+    ws.onopen = () => {
       console.log('WebSocket connection established');
-      setIsConnected(true);
-      setShowConnectedMessage(true);
-
-      // Recupera il connectionId dal server
-      try {
-        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        setConnectionId(response.data.connectionId);
-      } catch (error) {
-        console.error('Error fetching connectionId:', error);
-      }
+      setIsConnected(true); // Imposta lo stato come connesso
     };
-
+  
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      
+  
+      if (data.connectionId) {
+        setConnectionId(data.connectionId); // Memorizza il connectionId
+        console.log('Received connectionId:', data.connectionId);
+      }
+  
       if (data.message) {
         setMessages(prevMessages => [...prevMessages, data.message]);
       }
     };
-
+  
     ws.onerror = (event) => {
       console.error('WebSocket error:', event);
       setIsConnected(false);
     };
-
+  
     ws.onclose = () => {
       console.log('WebSocket connection closed');
       setIsConnected(false);
     };
-
+  
     return () => {
       ws.close();
     };
   }, []);
+  
 
   const handleChange = (event) => {
     setText(event.target.value);
