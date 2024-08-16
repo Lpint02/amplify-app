@@ -22,7 +22,7 @@ function App() {
   
     ws.onmessage = (event) => {
       const data = JSON.parse(event.data);
-  
+      console.log('Received data:',data);
       if (data.connectionId) {
         setConnectionId(data.connectionId); // Memorizza il connectionId
         console.log('Received connectionId:', data.connectionId);
