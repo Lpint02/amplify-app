@@ -7,7 +7,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  const [isConnected, setIsConnected] = useState(false);
+  //const [isConnected, setIsConnected] = useState(false);
   const [title, setTitle] = useState('Insert the word to reverse');
   const [showConnectedMessage, setShowConnectedMessage] = useState(false);
   const [connectionId, setConnectionId] = useState('');
@@ -15,9 +15,16 @@ function App() {
   useEffect(() => {
     const ws = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
   
-    ws.onopen = () => {
+    ws.onopen = async () => {
       console.log('WebSocket connection established');
-      setIsConnected(true); // Imposta lo stato come connesso
+      try {
+        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id');
+        console.log('Response:', response);
+        setConnectionId(response.data.connectionId);
+        console.log('Connection ID:', response.data.connectionId);
+      } catch (error) {
+        console.error('Error fetching connectionId:', error);
+      }
     };
   
     ws.onmessage = (event) => {
@@ -41,12 +48,12 @@ function App() {
   
     ws.onerror = (event) => {
       console.error('WebSocket error:', event);
-      setIsConnected(false);
+      //setIsConnected(false);
     };
   
     ws.onclose = () => {
       console.log('WebSocket connection closed');
-      setIsConnected(false);
+      //setIsConnected(false);
     };
   
     return () => {
@@ -109,9 +116,9 @@ function App() {
           value={text}
           onChange={handleChange}
           placeholder="Enter your message"
-          disabled={!isConnected}
+          //disabled={!isConnected}
         />
-        <button onClick={handleClick} disabled={!isConnected}>
+        <button onClick={handleClick} /*disabled={!isConnected}*/>
           Send Message
         </button>
         {responseMessage && (
