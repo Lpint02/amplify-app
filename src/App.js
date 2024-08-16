@@ -7,7 +7,7 @@ function App() {
   const [messages, setMessages] = useState([]);
   const [responseMessage, setResponseMessage] = useState('');
   const [isError, setIsError] = useState(false);
-  //const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
   const [title, setTitle] = useState('Insert the word to reverse');
   const [showConnectedMessage, setShowConnectedMessage] = useState(false);
   const [connectionId, setConnectionId] = useState('');
@@ -18,10 +18,12 @@ function App() {
     ws.onopen = async () => {
       console.log('WebSocket connection established');
       try {
-        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id');
-        console.log('Response:', response);
+        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         setConnectionId(response.data.connectionId);
-        console.log('Connection ID:', response.data.connectionId);
       } catch (error) {
         console.error('Error fetching connectionId:', error);
       }
@@ -48,12 +50,12 @@ function App() {
   
     ws.onerror = (event) => {
       console.error('WebSocket error:', event);
-      //setIsConnected(false);
+      setIsConnected(false);
     };
   
     ws.onclose = () => {
       console.log('WebSocket connection closed');
-      //setIsConnected(false);
+      setIsConnected(false);
     };
   
     return () => {
@@ -136,7 +138,9 @@ function App() {
             </ul>
           </div>
         )}
-
+        {!isConnected && (
+          <p className="error-message">WebSocket is disconnected. Please refresh the page.</p>
+        )}
       </header>
     </div>
   );
