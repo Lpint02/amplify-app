@@ -24,27 +24,18 @@ function App() {
           }
         });
         setConnectionId(response.data.connectionId);
+        setIsConnected(true); // Aggiorna lo stato di connessione
+        setShowConnectedMessage(true); // Mostra il messaggio di connessione
       } catch (error) {
         console.error('Error fetching connectionId:', error);
       }
     };
   
     ws.onmessage = (event) => {
-      console.log('WebSocket message event:', event); // Log dell'intero evento
-      try {
-        const data = JSON.parse(event.data); // Parsa il messaggio JSON
-        console.log('Parsed data:', data); // Log dei dati parsati
-  
-        if (data.message) {
-          setMessages(prevMessages => [...prevMessages, data.message]);
-        }
-  
-        if (data.connectionId) {
-          console.log('Received connectionId:', data.connectionId);
-          setConnectionId(data.connectionId); // Memorizza l'ID della connessione
-        }
-      } catch (error) {
-        console.error('Error parsing message:', error);
+      const data = JSON.parse(event.data);
+
+      if (data.message) {
+        setMessages(prevMessages => [...prevMessages, data.message]);
       }
     };
   
