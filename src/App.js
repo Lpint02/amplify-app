@@ -23,7 +23,6 @@ function App() {
             'Content-Type': 'application/json'
           }
         });
-        console.log(reponse);
         setConnectionId(response.data.connectionId);
         setIsConnected(true); // Aggiorna lo stato di connessione
         setShowConnectedMessage(true); // Mostra il messaggio di connessione
