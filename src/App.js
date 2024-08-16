@@ -23,6 +23,7 @@ function App() {
             'Content-Type': 'application/json'
           }
         });
+        console.log(reponse);
         setConnectionId(response.data.connectionId);
         setIsConnected(true); // Aggiorna lo stato di connessione
         setShowConnectedMessage(true); // Mostra il messaggio di connessione
@@ -32,8 +33,9 @@ function App() {
     };
   
     ws.onmessage = (event) => {
+      console.log('Event received:', event);
       const data = JSON.parse(event.data);
-
+      console.log('Data received:', data);
       if (data.message) {
         setMessages(prevMessages => [...prevMessages, data.message]);
       }
