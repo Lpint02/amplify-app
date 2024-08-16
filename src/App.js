@@ -21,6 +21,7 @@ function App() {
     };
   
     ws.onmessage = (event) => {
+      console.log(event);
       const data = JSON.parse(event.data);
       console.log('Received data:',data);
       if (data.connectionId) {
