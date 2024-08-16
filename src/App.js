@@ -21,16 +21,21 @@ function App() {
     };
   
     ws.onmessage = (event) => {
-      console.log(event);
-      const data = JSON.parse(event.data);
-      console.log('Received data:',data);
-      if (data.connectionId) {
-        setConnectionId(data.connectionId); // Memorizza il connectionId
-        console.log('Received connectionId:', data.connectionId);
-      }
+      console.log('WebSocket message event:', event); // Log dell'intero evento
+      try {
+        const data = JSON.parse(event.data); // Parsa il messaggio JSON
+        console.log('Parsed data:', data); // Log dei dati parsati
   
-      if (data.message) {
-        setMessages(prevMessages => [...prevMessages, data.message]);
+        if (data.message) {
+          setMessages(prevMessages => [...prevMessages, data.message]);
+        }
+  
+        if (data.connectionId) {
+          console.log('Received connectionId:', data.connectionId);
+          setConnectionId(data.connectionId); // Memorizza l'ID della connessione
+        }
+      } catch (error) {
+        console.error('Error parsing message:', error);
       }
     };
   
