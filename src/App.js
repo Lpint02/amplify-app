@@ -136,9 +136,7 @@ function App() {
             </ul>
           </div>
         )}
-        {!isConnected && (
-          <p className="error-message">WebSocket is disconnected. Please refresh the page.</p>
-        )}
+
       </header>
     </div>
   );
