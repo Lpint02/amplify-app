@@ -64,6 +64,8 @@ function App() {
   const handleClick = async () => {
     try {
       if (text && connectionId) {
+        console.log('Sending message:', text);
+        console.log('ConnectionId:', connectionId);
         const response = await axios.post('https://rzf142a7hc.execute-api.us-east-1.amazonaws.com/prod/enqueue', {
           message: text,
           connectionId: connectionId
