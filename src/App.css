@@ -70,6 +70,11 @@ button:hover {
   font-size: 18px; 
 }
 
+.connected-message { 
+  color: black; 
+  font-size: 18px; 
+}
+
 .title {
   color: #9b2032; /* Stesso colore del bottone */
   margin-bottom: 20px;

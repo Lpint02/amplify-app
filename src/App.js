@@ -98,6 +98,12 @@ function App() {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleClick();
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -111,10 +117,11 @@ function App() {
           type="text"
           value={text}
           onChange={handleChange}
+          onKeyDown={handleKeyDown}
           placeholder="Enter your message"
-          //disabled={!isConnected}
+          disabled={!isConnected}
         />
-        <button onClick={handleClick} /*disabled={!isConnected}*/>
+        <button onClick={handleClick} disabled={!isConnected}>
           Send Message
         </button>
         {responseMessage && (
