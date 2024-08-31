@@ -46,7 +46,7 @@ function App() {
     };
   
     ws.onclose = () => {
-      console.log('WebSocket connection closed');
+      console.log('WebSocket connectionn closed');
       setIsConnected(false);
     };
   
