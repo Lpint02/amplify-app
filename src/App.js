@@ -34,7 +34,7 @@ const FileUploader = () => {
     }
 
     try {
-      const response = await fetch(`https://your-api-id.execute-api.your-region.amazonaws.com/prod/generate-upload-url?filename=${file.name}`, {
+      const response = await fetch(`https://rq2obuv0y4.execute-api.us-east-1.amazonaws.com/generate-upload.url?filename=${file.name}`, {
         method: 'POST',
       });
       const data = await response.json();
