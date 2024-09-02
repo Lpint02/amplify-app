@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 
-const FileUploader = () => {
+function App ()  {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [uploadUrl, setUploadUrl] = useState('');
