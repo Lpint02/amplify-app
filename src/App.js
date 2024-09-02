@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
 
-function App ()  {
+function App () {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [uploadUrl, setUploadUrl] = useState('');
+  const [error, setError] = useState('');
 
   const handleFileSelect = (event) => {
     const selectedFile = event.target.files[0];
@@ -34,16 +35,39 @@ function App ()  {
     }
 
     try {
-      const response = await fetch(`https://rq2obuv0y4.execute-api.us-east-1.amazonaws.com/generate-upload.url?filename=${file.name}`, {
-        method: 'POST',
+      const response = await axios.post('https://kpcukmvmn8.execute-api.us-east-1.amazonaws.com/prod/get-url-presigned', {
+        filename: file.name
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
-      const data = await response.json();
-      setUploadUrl(data.url);
-      console.log('Presigned URL:', data.url);
+      setUploadUrl(response.data.url);
+      setError('');
+      console.log('Presigned URL:', response.data.url);
     } catch (error) {
       console.error('Errore nel recupero della URL presigned:', error);
+      setError('Errore nel recupero della URL presigned');
     }
   };
+
+  /*
+    const uploadFile = async () => {
+    if (!file || !uploadUrl) return;
+    
+    try {
+      await axios.put(uploadUrl, file, {
+        headers: {
+          'Content-Type': file.type
+        }
+      });
+      alert('File caricato con successo!');
+    } catch (error) {
+      console.error('Errore nel caricamento del file:', error);
+      setError('Errore nel caricamento del file');
+    }
+  };
+  */
 
   return (
     <div className="uploader-container">
@@ -69,6 +93,16 @@ function App ()  {
       <button className="btn" onClick={getPresignedUrl} style={{ marginLeft: '10px' }}>
         Ottieni URL Presigned
       </button>
+
+      {uploadUrl && (
+        <div>
+          <h3>Presigned URL:</h3>
+          <p>{uploadUrl}</p>
+          <a href={uploadUrl} target="_blank" rel="noopener noreferrer">Apri URL</a>
+        </div>
+      )}
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };
