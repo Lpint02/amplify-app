@@ -120,3 +120,49 @@ button:hover {
   text-align: left;
   color: #9b2032;
 }
+
+.uploader-container {
+  max-width: 400px;
+  margin: 50px auto;
+  text-align: center;
+}
+
+.dropzone {
+  border: 2px dashed #cccccc;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.dropzone.dragging {
+  background-color: #e6f7ff;
+  border-color: #1890ff;
+}
+
+.dropzone p {
+  color: #888888;
+  font-size: 16px;
+  margin: 0;
+}
+
+.btn {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #40a9ff;
+}
+
+.btn:focus {
+  outline: none;
+}
