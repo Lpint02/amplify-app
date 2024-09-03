@@ -112,7 +112,7 @@ function App() {
           <h3>Presigned URL:</h3>
           <p>{uploadUrl}</p>
           <a href={uploadUrl} target="_blank" rel="noopener noreferrer">Apri URL</a>
-          <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }}>
+          <button className="btn" onClick={getPresignedUrl} style={{ marginLeft: '10px' }}>
             Carica File
           </button>
         </div>
