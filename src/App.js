@@ -51,6 +51,7 @@ function App () {
       });
 
       const uploadUrl = response.data.url;
+      console.log('URL presigned ricevuta:', uploadUrl);
       setError('');
 
       // Step 2: Carica il file usando la URL presigned
