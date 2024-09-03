@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
-function App() {
+function App () {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -41,18 +41,24 @@ function App() {
     }
 
     try {
-      // Step 1: Ottieni la URL presigned usando GET
-      const response = await axios.get('https://ce0p5ak98j.execute-api.us-east-1.amazonaws.com/prod/generate-presigned-url', {
-        params: { key: file.name }  // Usa i parametri della query string per passare il nome del file
+      // Step 1: Ottieni la URL presigned
+      const response = await axios.post('https://kpcukmvmn8.execute-api.us-east-1.amazonaws.com/prod/get-url-presigned', {
+        filename: file.name
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
       });
 
-      const { uploadURL } = response.data;
-      console.log('URL presigned ricevuta:', uploadURL);
+      const uploadUrl = response.data.url;
+      console.log('URL presigned ricevuta:', uploadUrl);
       setError('');
 
       // Step 2: Carica il file usando la URL presigned
-      await axios.put(uploadURL, file, {
-        headers: { 'Content-Type': file.type },
+      await axios.put(uploadUrl, file, {
+        headers: {
+          'Content-Type': file.type,
+        },
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
           setUploadProgress(percentCompleted);
