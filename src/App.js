@@ -42,7 +42,7 @@ function App() {
     }
 
     try {
-      const response = await axios.post('https://kpcukmvmn8.execute-api.us-east-1.amazonaws.com/prod/get-url-presigned', {
+      const response = await axios.post('https://hym80goqc7.execute-api.us-east-1.amazonaws.com/prod/get-url-presigned', {
         filename: file.name
       }, {
         headers: {
