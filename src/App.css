@@ -122,19 +122,19 @@ button:hover {
 }
 
 .uploader-container {
-  max-width: 400px;
-  margin: 50px auto;
+  max-width: 450px;
+  margin: 60px auto;
   text-align: center;
 }
 
 .dropzone {
-  border: 2px dashed #cccccc;
-  padding: 40px;
+  border: 3px dashed #cccccc;
+  padding: 50px;
   border-radius: 10px;
   background-color: white;
   transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .dropzone.dragging {
@@ -144,7 +144,7 @@ button:hover {
 
 .dropzone p {
   color: #888888;
-  font-size: 16px;
+  font-size: 18px;
   margin: 0;
 }
 
@@ -152,10 +152,10 @@ button:hover {
   background-color: #9b2032;
   color: #fffeef;
   border: none;
-  padding: 10px 20px;
+  padding: 15px 30px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 18px;
   transition: background-color 0.3s ease;
 }
 
@@ -172,4 +172,24 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
+}
+
+.progress-bar {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 20px;
+  height: 30px; /* Aumentato */
+}
+
+.progress-bar-inner {
+  height: 100%;
+  width: 0;
+  background-color: #9b2032;
+  text-align: center;
+  line-height: 30px; /* Aumentato */
+  color: white;
+  font-size: 16px;
+  transition: width 0.4s ease;
 }
