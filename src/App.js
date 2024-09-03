@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
-function App () {
+function App() {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [uploadUrl, setUploadUrl] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -34,28 +35,34 @@ function App () {
     setSuccess(false);
   };
 
-  const uploadFile = async () => {
+  const getPresignedUrl = async () => {
     if (!file) {
       alert('Nessun file selezionato.');
       return;
     }
 
     try {
-      // Step 1: Ottieni la URL presigned
-      const response = await axios.post('https://hym80goqc7.execute-api.us-east-1.amazonaws.com/prod/get-url-presigned', {
+      const response = await axios.post('https://kpcukmvmn8.execute-api.us-east-1.amazonaws.com/prod/get-url-presigned', {
         filename: file.name
       }, {
         headers: {
           'Content-Type': 'application/json'
         }
       });
-
-      const uploadUrl = response.data.url;
-      console.log('URL presigned ricevuta:', uploadUrl);
+      setUploadUrl(response.data.url);
       setError('');
+      console.log('Presigned URL:', response.data.url);
+    } catch (error) {
+      console.error('Errore nel recupero della URL presigned:', error);
+      setError('Errore nel recupero della URL presigned');
+    }
+  };
+  /*
+  const uploadFile = async () => {
+    if (!uploadUrl || !file) return;
 
-      // Step 2: Carica il file usando la URL presigned
-      await axios.put(uploadUrl, file, {
+    try {
+      const response = await axios.put(uploadUrl, file, {
         headers: {
           'Content-Type': file.type,
         },
@@ -65,14 +72,16 @@ function App () {
         }
       });
 
-      setSuccess(true);
-      alert('File caricato con successo!');
+      if (response.status === 200) {
+        setSuccess(true);
+        alert('File caricato con successo!');
+      }
     } catch (error) {
-      console.error('Errore durante il caricamento del file:', error);
-      setError('Errore durante il caricamento del file');
+      console.error('Errore nel caricamento del file:', error);
+      setError('Errore nel caricamento del file');
     }
   };
-
+  */
   return (
     <div className="uploader-container">
       <div
@@ -94,13 +103,24 @@ function App () {
         />
       </div>
       <button className="btn" onClick={() => document.getElementById('fileInput').click()}>Seleziona File</button>
-      <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }}>
-        Carica File
+      <button className="btn" onClick={getPresignedUrl} style={{ marginLeft: '10px' }}>
+        Ottieni URL Presigned
       </button>
+
+      {uploadUrl && (
+        <div>
+          <h3>Presigned URL:</h3>
+          <p>{uploadUrl}</p>
+          <a href={uploadUrl} target="_blank" rel="noopener noreferrer">Apri URL</a>
+          <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }}>
+            Carica File
+          </button>
+        </div>
+      )}
 
       {uploadProgress > 0 && (
         <div className="progress-container">
-          <div className="progress-bar-inner" style={{ width: `${uploadProgress}%` }}>
+          <div className="progress-bar" style={{ width: `${uploadProgress}%` }}>
             {uploadProgress}%
           </div>
         </div>
