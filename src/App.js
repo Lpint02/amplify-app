@@ -83,13 +83,12 @@ function App() {
         headers: {
             'Content-Type': 'application/json'
         }
-    });
-
+      });
     const downloadUrl = response2.data.url;
     console.log('URL presigned per il download ricevuta:', downloadUrl);
 
     // Step 4: Effettua la richiesta GET alla URL presigned per ottenere il contenuto del file
-    const fileResponse = await axios.get(downloadUrl);
+    const fileResponse = await axios.get(downloadUrl); 
     const content = fileResponse.data;
     setFileContent(content); 
 
@@ -98,6 +97,7 @@ function App() {
       setError('Errore durante il caricamento del file');
     }
   };
+  
   return (
     <div className="uploader-container">
       <div
