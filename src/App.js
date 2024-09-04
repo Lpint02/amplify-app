@@ -73,7 +73,7 @@ function App() {
       alert('File caricato con successo!');
 
       // Step 3: Invia i dettagli del file all'API
-      await axios.post('https://vzxoqe9982.execute-api.us-east-1.amazonaws.com/dev/setretrieveinfo', {
+      const response2 = await axios.post('https://vzxoqe9982.execute-api.us-east-1.amazonaws.com/dev/setretrieveinfo', {
         bucketname: bucketName,
         objectkey: objectKey,
       }, {
@@ -82,6 +82,8 @@ function App() {
         }
     });
 
+    const downloadUrl = response2.data.url;
+    console.log('URL presigned per il download ricevuta:', downloadUrl);
 
     } catch (error) {
       console.error('Errore durante il caricamento del file:', error);
