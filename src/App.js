@@ -8,12 +8,14 @@ function App() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [fileContent, setFileContent] = useState('');
 
   const handleFileSelect = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
     setUploadProgress(0);
     setSuccess(false);
+    setFileContent('');
   };
 
   const handleDragOver = (event) => {
@@ -32,6 +34,7 @@ function App() {
     setFile(droppedFile);
     setUploadProgress(0);
     setSuccess(false);
+    setFileContent('');
   };
 
   const uploadFile = async () => {
@@ -85,6 +88,11 @@ function App() {
     const downloadUrl = response2.data.url;
     console.log('URL presigned per il download ricevuta:', downloadUrl);
 
+    // Step 4: Effettua la richiesta GET alla URL presigned per ottenere il contenuto del file
+    const fileResponse = await axios.get(downloadUrl);
+    const content = fileResponse.data;
+    setFileContent(content); 
+
     } catch (error) {
       console.error('Errore durante il caricamento del file:', error);
       setError('Errore durante il caricamento del file');
@@ -126,6 +134,13 @@ function App() {
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {success && <p style={{ color: 'green' }}>Caricamento completato con successo!</p>}
+
+      {fileContent && (
+        <div className="file-content">
+          <h3>Contenuto del file:</h3>
+          <pre>{fileContent}</pre>
+        </div>
+      )}
     </div>
   );
 }
