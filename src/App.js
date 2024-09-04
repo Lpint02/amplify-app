@@ -49,7 +49,12 @@ function App() {
           'Content-Type': 'application/json'
         }
       });
+<<<<<<< HEAD
       setUploadUrl(response.data.url);
+=======
+
+      const uploadUrl = response.data.url;
+>>>>>>> parent of e6fc435 (url presigned in the console)
       setError('');
       console.log('Presigned URL:', response.data.url);
     } catch (error) {
