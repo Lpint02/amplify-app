@@ -51,8 +51,13 @@ function App() {
         });
 
         const uploadUrl = response.data.url;
+        const bucketName = response.data.bucketName; 
+        const objectKey = response.data.key; 
         console.log('URL presigned ricevuta:', uploadUrl);
+        console.log('Nome del bucket:', bucketName);
+        console.log('Object key:', objectKey);
         setError('');
+
         // Step 2: Carica il file usando la URL presigned
         await axios.put(uploadUrl, file, {
           headers: {
@@ -66,6 +71,18 @@ function App() {
 
       setSuccess(true);
       alert('File caricato con successo!');
+
+      // Step 3: Invia i dettagli del file all'API
+      await axios.post('https://vzxoqe9982.execute-api.us-east-1.amazonaws.com/dev/setretrieveinfo', {
+        bucketname: bucketName,
+        objectkey: objectKey,
+      }, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+
     } catch (error) {
       console.error('Errore durante il caricamento del file:', error);
       setError('Errore durante il caricamento del file');
@@ -112,3 +129,5 @@ function App() {
 }
 
 export default App;
+
+
