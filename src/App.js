@@ -56,7 +56,7 @@ function App() {
         // Step 2: Carica il file usando la URL presigned
         await axios.put(uploadUrl, file, {
           headers: {
-          'Content-Type': file.type
+          'Content-Type': 'text/plain'
         },
         onUploadProgress: (progressEvent) => {
           const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
@@ -96,7 +96,7 @@ function App() {
         Carica File
       </button>
 
-
+      
       {uploadProgress > 0 && (
         <div className="progress-container">
           <div className="progress-bar" style={{ width: `${uploadProgress}%` }}>
