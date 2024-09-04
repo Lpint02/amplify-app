@@ -5,7 +5,6 @@ import './App.css';
 function App() {
   const [file, setFile] = useState(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [uploadUrl, setUploadUrl] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
@@ -51,9 +50,8 @@ function App() {
             }
         });
 
-        const uploadUrl = response.data.url
-        ;
-        console.log('URL presigned ricevuta:', url);
+        const uploadUrl = response.data.url;
+        console.log('URL presigned ricevuta:', uploadUrl);
         setError('');
         // Step 2: Carica il file usando la URL presigned
         await axios.put(uploadUrl, file, {
