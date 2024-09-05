@@ -76,7 +76,7 @@ function App() {
       alert('File caricato con successo!');
 
       // Step 3: Invia i dettagli del file all'API
-      const response2 = await axios.post('https://vzxoqe9982.execute-api.us-east-1.amazonaws.com/dev/setretrieveinfo', {
+      await axios.post('https://vzxoqe9982.execute-api.us-east-1.amazonaws.com/dev/setretrieveinfo', {
         bucketname: bucketName,
         objectkey: objectKey,
       }, {
@@ -84,14 +84,14 @@ function App() {
             'Content-Type': 'application/json'
         }
       });
+    /*
     const downloadUrl = response2.data.url;
     console.log('URL presigned per il download ricevuta:', downloadUrl);
-
     // Step 4: Effettua la richiesta GET alla URL presigned per ottenere il contenuto del file
     const fileResponse = await axios.get(downloadUrl); 
     const content = fileResponse.data;
     setFileContent(content); 
-
+    */
     } catch (error) {
       console.error('Errore durante il caricamento del file:', error);
       setError('Errore durante il caricamento del file');
