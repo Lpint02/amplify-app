@@ -18,7 +18,7 @@
 .App-link {
   color: #e9b51b;
 }
-
+/*
 input[type="text"] { 
   padding: 20px; 
   margin: 20px; 
@@ -39,7 +39,7 @@ input[type="text"]:focus {
 input[type="text"]::placeholder {
   color: #9b2032; 
 }
-
+*/
  
 button { 
   padding: 20px 40px; 
@@ -176,7 +176,7 @@ body {
 
 .progress-bar {
   width: 100%;
-  background-color: #e0e0e0;
+  background-color: #282be6;
   border-radius: 5px;
   overflow: hidden;
   margin-top: 20px;
@@ -192,4 +192,41 @@ body {
   color: white;
   font-size: 16px;
   transition: width 0.4s ease;
+}
+
+.uploaded-files-container {
+  margin-top: 30px;
+}
+
+.uploaded-files-list {
+  list-style: none;
+  padding: 0;
+}
+
+.uploaded-file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 2px solid #9b2032;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #fffeef;
+}
+
+.uploaded-file-name {
+  font-size: 18px;
+  color: #9b2032;
+}
+
+.upload-status {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.semaforo {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: red;
 }

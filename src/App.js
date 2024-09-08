@@ -8,14 +8,14 @@ function App() {
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [fileContent, setFileContent] = useState('');
+  const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const handleFileSelect = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
     setUploadProgress(0);
     setSuccess(false);
-    setFileContent('');
   };
 
   const handleDragOver = (event) => {
@@ -34,7 +34,6 @@ function App() {
     setFile(droppedFile);
     setUploadProgress(0);
     setSuccess(false);
-    setFileContent('');
   };
 
   const uploadFile = async () => {
@@ -42,6 +41,13 @@ function App() {
         alert('Nessun file selezionato.');
         return;
     }
+
+    if (isUploading) {
+      alert('Attendi il completamento dell\'upload attuale.');
+      return;
+    }
+
+    setIsUploading(true);
 
     try {
         // Step 1: Ottieni la URL presigned
@@ -57,8 +63,8 @@ function App() {
         const bucketName = response.data.bucketName; 
         const objectKey = response.data.key; 
         console.log('URL presigned ricevuta:', uploadUrl);
-        console.log('Nome del bucket:', bucketName);
-        console.log('Object key:', objectKey);
+        //console.log('Nome del bucket:', bucketName);
+        //console.log('Object key:', objectKey);
         setError('');
 
         // Step 2: Carica il file usando la URL presigned
@@ -72,9 +78,6 @@ function App() {
         }
       });
 
-      setSuccess(true);
-      alert('File caricato con successo!');
-
       // Step 3: Invia i dettagli del file all'API
       await axios.post('https://vzxoqe9982.execute-api.us-east-1.amazonaws.com/dev/setretrieveinfo', {
         bucketname: bucketName,
@@ -84,14 +87,17 @@ function App() {
             'Content-Type': 'application/json'
         }
       });
-    /*
-    const downloadUrl = response2.data.url;
-    console.log('URL presigned per il download ricevuta:', downloadUrl);
-    // Step 4: Effettua la richiesta GET alla URL presigned per ottenere il contenuto del file
-    const fileResponse = await axios.get(downloadUrl); 
-    const content = fileResponse.data;
-    setFileContent(content); 
-    */
+
+      // Aggiorna l'elenco dei file caricati
+      setUploadedFiles(prevFiles => [
+        ...prevFiles,
+        { name: file.name, status: 'Caricamento completo', color: 'red' } // Il semaforo è rosso per ora
+      ]);
+      setSuccess(true);
+      setFile(null); // Resetta il file
+      setUploadProgress(0);
+      alert('File caricato con successo!');
+
     } catch (error) {
       console.error('Errore durante il caricamento del file:', error);
       setError('Errore durante il caricamento del file');
@@ -133,14 +139,16 @@ function App() {
       )}
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>Caricamento completato con successo!</p>}
+      {success && <p style={{ color: 'green' }}>Caricamento completato con successo resta in attesa!</p>}
 
-      {fileContent && (
-        <div className="file-content">
-          <h3>Contenuto del file:</h3>
-          <pre>{fileContent}</pre>
-        </div>
-      )}
+      <ul className="uploaded-files-list">
+        {uploadedFiles.map((uploadedFile, index) => (
+          <li key={index}>
+            {uploadedFile.name} - <span>{uploadedFile.status}</span> -{' '}
+            <span className={`semaphore ${uploadedFile.color === 'red' ? 'red' : 'green'}`}></span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
