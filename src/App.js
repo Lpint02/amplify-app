@@ -101,6 +101,8 @@ function App() {
     } catch (error) {
       console.error('Errore durante il caricamento del file:', error);
       setError('Errore durante il caricamento del file');
+    } finally {
+      setIsUploading(false); // Reset dello stato di caricamento
     }
   };
   
@@ -145,7 +147,7 @@ function App() {
         {uploadedFiles.map((uploadedFile, index) => (
           <li key={index}>
             {uploadedFile.name} - <span>{uploadedFile.status}</span> -{' '}
-            <span className={`semaphore ${uploadedFile.color === 'red' ? 'red' : 'green'}`}></span>
+            <span className={`semaforo ${uploadedFile.color === 'red' ? 'red' : 'green'}`}></span>
           </li>
         ))}
       </ul>
