@@ -161,7 +161,7 @@ function App() {
 
       {uploadedFiles.length > 0 && (
         <>
-          <h2 className="files-title">Matrici elaborate</h2>
+          <h2 className="files-title">Matrici in elaborazione o elaborate</h2>
           <ul className="uploaded-files-list">
             {uploadedFiles.map((uploadedFile, index) => (
               <li key={index}>

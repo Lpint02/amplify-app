@@ -134,7 +134,7 @@ body {
   font-size: 24px; 
   font-weight: bold;
   color: #9b2032; 
-  text-align: left;
+  text-align: center;
   margin-bottom: 10px;
 }
 
@@ -149,7 +149,8 @@ body {
 .uploaded-files-list li {
   display: inline-block;  
   margin-bottom: 10px;
-  width: auto;  
+  width: 100%;
+  text-align: center;  
   white-space: nowrap;  
   position: relative;
 }
