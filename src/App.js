@@ -10,6 +10,7 @@ function App() {
   const [success, setSuccess] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [connectionId, setConnectionId] = useState('');
   const [IsConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState(null);
 
@@ -19,7 +20,7 @@ function App() {
     link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css';
     document.head.appendChild(link);
   }, []);
-  
+
   useEffect(() => {
     // Connessione WebSocket
     const websocket = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
@@ -154,6 +155,7 @@ function App() {
       await axios.post('https://vzxoqe9982.execute-api.us-east-1.amazonaws.com/dev/setretrieveinfo', {
         bucketname: bucketName,
         objectkey: objectKey,
+        connectionId: connectionId
       }, {
         headers: {
             'Content-Type': 'application/json'
