@@ -143,13 +143,14 @@ body {
   margin-top: 20px;    
   font-size: 1.5em;    
   padding-left: 20px;  
-  color: #333;          
+  color: #333;  
+  width: 100%;        
 }
 
 .uploaded-files-list li {
   margin-bottom: 10px;
-  display: flex; 
-  align-items: center;   
+  align-items: center; 
+  white-space: nowrap;  
 }
 
 .uploaded-files-list li::marker {
@@ -163,6 +164,7 @@ body {
 .semaforo {
   font-size: 18px;
   margin-left: 10px;
+  float: right;
 }
 
 .semaforo.red {
