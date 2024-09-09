@@ -10,8 +10,16 @@ function App() {
   const [success, setSuccess] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [IsConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState(null);
 
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css';
+    document.head.appendChild(link);
+  }, []);
+  
   useEffect(() => {
     // Connessione WebSocket
     const websocket = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
@@ -19,18 +27,18 @@ function App() {
 
     websocket.onopen = async () => {
       console.log('WebSocket connection established');
-      //try {
-        //const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
-          //headers: {
-            //'Content-Type': 'application/json'
-          //}
-        //});
-        //setConnectionId(response.data.connectionId);
-        //setIsConnected(true); 
-        //setShowConnectedMessage(true); 
-      //} catch (error) {
-        //console.error('Error fetching connectionId:', error);
-      //}
+      try {
+        const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        setConnectionId(response.data.connectionId);
+        setIsConnected(true); 
+        setShowConnectedMessage(true); 
+      } catch (error) {
+        console.error('Error fetching connectionId:', error);
+      }
     };
 
     websocket.onmessage = (event) => {
@@ -62,24 +70,17 @@ function App() {
 
     websocket.onerror = (event) => {
       console.error('WebSocket error:', event);
-      //setIsConnected(false); 
+      setIsConnected(false); 
     };
 
     websocket.onclose = () => {
       console.log('WebSocket connection closed');
-      //setIsConnected(false); 
+      setIsConnected(false); 
     };
 
     return () => {
       websocket.close();
     };
-  }, []);
-
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css';
-    document.head.appendChild(link);
   }, []);
 
   const handleFileSelect = (event) => {
@@ -162,7 +163,7 @@ function App() {
       // Aggiungi il file con stato "In attesa" (semaforo blu)
       setUploadedFiles(prevFiles => [
         ...prevFiles,
-        { name: file.name, status: 'Caricamento avvenuto. Elaborazione in corso....', color: 'blue' } // Il semaforo è rosso per ora
+        { name: file.name, status: 'Caricamento avvenuto. Elaborazione in corso....', color: 'blue' } 
       ]);
       setSuccess(true);
       setFile(null); // Resetta il file
