@@ -18,6 +18,28 @@
 .App-link {
   color: #e9b51b;
 }
+/*
+input[type="text"] { 
+  padding: 20px; 
+  margin: 20px; 
+  font-size: 24px;
+  color:#9b2032; 
+  width: 80%; 
+  max-width: 600px; 
+  border: 3px solid #9b2032;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px rgba(138, 5, 5, 0.1); 
+  transition: box-shadow 0.3s ease; 
+} 
+
+input[type="text"]:focus {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); 
+}
+
+input[type="text"]::placeholder {
+  color: #9b2032; 
+}
+*/
  
 button { 
   padding: 20px 40px; 
@@ -54,9 +76,49 @@ button:hover {
 }
 
 .title {
-  color: #9b2032;
+  color: #9b2032; /* Stesso colore del bottone */
   margin-bottom: 20px;
 }
+/*
+.messages-container {
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fffeef;
+  border: 3px solid #9b2032;
+  border-radius: 5px;
+  color: #9b2032;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.messages-container.empty {
+  height: 50px; 
+  padding: 20px;
+  justify-content: center; 
+}
+
+.messages-container h2 {
+  margin: 0;
+}
+
+.messages-container ul {
+  list-style-type: disc;
+  padding-left: 40px;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.messages-container li {
+  margin: 5px 0;
+  text-align: left;
+  color: #9b2032;
+}
+*/
 
 .uploader-container {
   max-width: 450px;
@@ -130,38 +192,20 @@ body {
   transition: width 0.4s ease;
 }
 
-.files-title {
-  font-size: 24px; 
-  font-weight: bold;
-  color: #9b2032; 
-  text-align: left;
-  margin-bottom: 10px;
-}
-
 .uploaded-files-list {
   list-style-type: disc; 
   margin-top: 20px;    
-  font-size: 1.5em;    
+  font-size: 1.2em;    
   padding-left: 20px;  
   color: #333;          
 }
 
 .uploaded-files-list li {
-  margin-bottom: 10px;
-  display: flex; 
-  align-items: center;   
-}
-
-.uploaded-files-list li::marker {
-  font-size: 1.5em; 
-}
-
-.uploaded-files-list li span {
-  margin-left: 10px; 
+  margin-bottom: 10px;   
 }
 
 .semaforo {
-  font-size: 18px;
+  font-size: 15px;
   margin-left: 10px;
 }
 

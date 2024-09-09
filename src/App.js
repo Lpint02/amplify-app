@@ -160,15 +160,17 @@ function App() {
       {success && <p style={{ color: 'green' }}>Caricamento completato con successo resta in attesa!</p>}
 
       {uploadedFiles.length > 0 && (
-        <ul className="uploaded-files-list">
-          {uploadedFiles.map((uploadedFile, index) => (
-            <li key={index}>
-              {uploadedFile.name} - {uploadedFile.status}
-              <i className={`fas fa-circle ${uploadedFile.color === 'red' ? 'semaforo red' : 'semaforo green'}`}></i>
-
-              </li>
-          ))}
-        </ul>
+        <>
+          <h2 className="files-title">Matrici elaborate</h2>
+          <ul className="uploaded-files-list">
+            {uploadedFiles.map((uploadedFile, index) => (
+              <li key={index}>
+                {uploadedFile.name} - {uploadedFile.status}
+                <i className={`fas fa-circle ${uploadedFile.color === 'red' ? 'semaforo red' : 'semaforo green'}`}></i>
+                </li>
+            ))}
+          </ul>
+        </>
       )}
     </div>
   );
