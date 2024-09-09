@@ -11,6 +11,13 @@ function App() {
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
 
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css';
+    document.head.appendChild(link);
+  }, []);
+
   const handleFileSelect = (event) => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
@@ -106,15 +113,6 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (success) {
-      const timer = setTimeout(() => {
-        setSuccess(false); // Nascondi il messaggio di successo dopo 10 secondi
-      }, 10000);
-      return () => clearTimeout(timer);
-    }
-  }, [success]);
-  
   return (
     <div className="uploader-container">
       <div
@@ -143,10 +141,8 @@ function App() {
       
       {uploadProgress > 0 && (
         <div className="progress-container">
-          <div className="progress-bar">
-            <div className="progress-bar-inner" style={{ width: `${uploadProgress}%` }}>
-              {uploadProgress}%
-            </div>
+          <div className="progress-bar" style={{ width: `${uploadProgress}%` }}>
+            {uploadProgress}%
           </div>
         </div>
       )}
@@ -155,11 +151,12 @@ function App() {
       {success && <p style={{ color: 'green' }}>Caricamento completato con successo resta in attesa!</p>}
 
       {uploadedFiles.length > 0 && (
-        <ul className="uploaded-files">
+        <ul className="uploaded-files-list">
           {uploadedFiles.map((uploadedFile, index) => (
             <li key={index}>
               {uploadedFile.name} - {uploadedFile.status}
-              <span className={`semaforo ${uploadedFile.color}`}></span>
+              <i className={`fas fa-circle ${uploadedFile.color === 'red' ? 'semaforo red' : 'semaforo green'}`}></i>
+
               </li>
           ))}
         </ul>

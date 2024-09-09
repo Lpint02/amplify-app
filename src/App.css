@@ -173,19 +173,17 @@ body {
   font-family: Arial, sans-serif;
 }
 
-.progress-bar {
+.progress-container {
   width: 100%;
-  background-color: #9b2032;
+  background-color: #ddd;
   border-radius: 5px;
   overflow: hidden;
-  color:white;
   margin-top: 20px;
   height: 30px; 
 }
 
-.progress-bar-inner {
+.progress-bar {
   height: 100%;
-  width: 0;
   background-color: #9b2032;
   text-align: center;
   line-height: 30px; 
@@ -194,7 +192,7 @@ body {
   transition: width 0.4s ease;
 }
 
-.uploaded-files {
+.uploaded-files-list {
   list-style-type: disc; 
   margin-top: 20px;    
   font-size: 1.2em;    
@@ -202,21 +200,19 @@ body {
   color: #333;          
 }
 
-.uploaded-files li {
+.uploaded-files-list li {
   margin-bottom: 10px;   
 }
 
 .semaforo {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background-color: red;
+  font-size: 15px;
+  margin-left: 10px;
 }
 
 .semaforo.red {
-  background-color: red;
+  color: red;
 }
 
 .semaforo.green {
-  background-color: green;
+  color: green;
 }
