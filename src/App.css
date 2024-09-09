@@ -165,8 +165,8 @@ body {
 }
 
 .semaforo {
-  font-size: 18px;
-  margin-left: 10;
+  font-size: 24px;
+  margin-left: 15px;
   display: inline-block;
   vertical-align: middle;
 }
