@@ -10,6 +10,70 @@ function App() {
   const [success, setSuccess] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
+  const [ws, setWs] = useState(null);
+
+  useEffect(() => {
+    // Connessione WebSocket
+    const websocket = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
+    setWs(websocket);
+
+    websocket.onopen = async () => {
+      console.log('WebSocket connection established');
+      //try {
+        //const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
+          //headers: {
+            //'Content-Type': 'application/json'
+          //}
+        //});
+        //setConnectionId(response.data.connectionId);
+        //setIsConnected(true); 
+        //setShowConnectedMessage(true); 
+      //} catch (error) {
+        //console.error('Error fetching connectionId:', error);
+      //}
+    };
+
+    websocket.onmessage = (event) => {
+      console.log('Event received:', event);
+      const data = JSON.parse(event.data);
+      console.log('Data received from WebSocket:', data);
+
+      // Assuming the message contains the filename to match with the uploaded files
+      if (data.status === 'completed' && data.file) {
+        setUploadedFiles(prevFiles =>
+          prevFiles.map(uploadedFile =>
+            uploadedFile.name === data.file
+              ? { ...uploadedFile, status: 'Elaborazione completata', color: 'green' }
+              : uploadedFile
+          )
+        );
+      } else if (data.status === 'error' && data.file) {
+        // Stato rosso (errore)
+        setUploadedFiles(prevFiles =>
+          prevFiles.map(uploadedFile =>
+            uploadedFile.name === data.file
+              ? { ...uploadedFile, status: 'Errore durante l\'elaborazione', color: 'red' }
+              : uploadedFile
+          )
+        );
+      }
+    };
+
+
+    websocket.onerror = (event) => {
+      console.error('WebSocket error:', event);
+      //setIsConnected(false); 
+    };
+
+    websocket.onclose = () => {
+      console.log('WebSocket connection closed');
+      //setIsConnected(false); 
+    };
+
+    return () => {
+      websocket.close();
+    };
+  }, []);
 
   useEffect(() => {
     const link = document.createElement('link');
@@ -95,10 +159,10 @@ function App() {
         }
       });
 
-      // Aggiorna l'elenco dei file caricati
+      // Aggiungi il file con stato "In attesa" (semaforo blu)
       setUploadedFiles(prevFiles => [
         ...prevFiles,
-        { name: file.name, status: 'Caricamento completo', color: 'red' } // Il semaforo è rosso per ora
+        { name: file.name, status: 'Caricamento avvenuto. Elaborazione in corso....', color: 'blue' } // Il semaforo è rosso per ora
       ]);
       setSuccess(true);
       setFile(null); // Resetta il file
@@ -166,7 +230,7 @@ function App() {
             {uploadedFiles.map((uploadedFile, index) => (
               <li key={index}>
                 <span>{uploadedFile.name} - {uploadedFile.status}</span>
-                <i className={`fas fa-circle ${uploadedFile.color === 'red' ? 'semaforo red' : 'semaforo green'}`}></i>
+                <i className={`fas fa-circle ${uploadedFile.color}`}></i>
                 </li>
             ))}
           </ul>
