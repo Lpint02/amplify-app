@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -112,6 +112,15 @@ function App() {
       setIsUploading(false); // Reset dello stato di caricamento
     }
   };
+
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setSuccess(false); // Nascondi il messaggio di successo dopo 10 secondi
+      }, 10000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
 
   return (
     <div className="uploader-container">
