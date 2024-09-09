@@ -147,9 +147,8 @@ body {
 }
 
 .uploaded-files-list li {
-  display: inline-block;  
-  margin-bottom: 10px;
-  width: 100%;
+  display: block;  
+  margin: 0 auto;
   text-align: center;  
   white-space: nowrap;  
   position: relative;
@@ -165,7 +164,7 @@ body {
 
 .semaforo {
   font-size: 18px;
-  margin-left: 10px;
+  margin-left: 10;
   display: inline-block;
   vertical-align: middle;
 }
