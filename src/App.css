@@ -139,32 +139,36 @@ body {
 }
 
 .uploaded-files-list {
-  list-style-type: disc; 
-  margin-top: 20px;    
-  font-size: 1.5em;    
-  padding-left: 20px;  
-  color: #333;  
-  width: 100%;        
+  list-style-type: none;  
+  margin-top: 20px;
+  padding-left: 0;
+  font-size: 1.5em;
+  text-align: center;   
 }
 
 .uploaded-files-list li {
+  display: inline-block;  
   margin-bottom: 10px;
-  align-items: center; 
+  width: auto;  
   white-space: nowrap;  
+  position: relative;
 }
 
-.uploaded-files-list li::marker {
-  font-size: 1.5em; 
-}
-
-.uploaded-files-list li span {
-  margin-left: 10px; 
+.uploaded-files-list li::before {
+  content: '•'; 
+  display: inline-block;
+  margin-right: 10px;  
+  font-size: 1.5em;
+  vertical-align: middle;
 }
 
 .semaforo {
   font-size: 18px;
   margin-left: 10px;
-  float: right;
+  position: absolute;
+  right: 0;  
+  top: 50%;
+  transform: translateY(-50%); 
 }
 
 .semaforo.red {
