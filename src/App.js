@@ -36,7 +36,7 @@ function App() {
         });
         setConnectionId(response.data.connectionId);
         setIsConnected(true); 
-        setShowConnectedMessage(true); 
+        //setShowConnectedMessage(true); 
       } catch (error) {
         console.error('Error fetching connectionId:', error);
       }
