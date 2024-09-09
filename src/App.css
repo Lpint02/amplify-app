@@ -143,15 +143,17 @@ body {
   margin-top: 20px;
   padding-left: 0;
   font-size: 1.5em;
-  text-align: center;   
+  text-align: center;
+  width: 100%;  
 }
 
 .uploaded-files-list li {
-  display: block;  
-  margin: 0 auto;
+  display: flex;  
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
   text-align: center;  
   white-space: nowrap;  
-  position: relative;
 }
 
 .uploaded-files-list li::before {

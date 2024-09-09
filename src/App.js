@@ -165,7 +165,7 @@ function App() {
           <ul className="uploaded-files-list">
             {uploadedFiles.map((uploadedFile, index) => (
               <li key={index}>
-                {uploadedFile.name} - {uploadedFile.status}
+                <span>{uploadedFile.name} - {uploadedFile.status}</span>
                 <i className={`fas fa-circle ${uploadedFile.color === 'red' ? 'semaforo red' : 'semaforo green'}`}></i>
                 </li>
             ))}
