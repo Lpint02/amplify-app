@@ -91,7 +91,7 @@ function App() {
   };
 
   const handleDragOver = (event) => {
-    if (isConnected) {
+    if (IsConnected) {
       event.preventDefault();
       setIsDragging(true);
     }
@@ -102,7 +102,7 @@ function App() {
   };
 
   const handleDrop = (event) => {
-    if (isConnected) {
+    if (IsConnected) {
       event.preventDefault();
       setIsDragging(false);
       const droppedFile = event.dataTransfer.files[0];
@@ -113,7 +113,7 @@ function App() {
   };
 
   const uploadFile = async () => {
-    if (!isConnected) {
+    if (!IsConnected) {
       alert('Connessione WebSocket non stabilita. Attendi la connessione.');
       return;
     }
@@ -197,7 +197,7 @@ function App() {
 
   return (
     <div className="uploader-container">
-      {!isConnected && <p>Connessione WebSocket in corso...</p>}
+      {!IsConnected && <p>Connessione WebSocket in corso...</p>}
       <div
         className={`dropzone ${isDragging ? 'dragging' : ''}`}
         onDragOver={handleDragOver}
@@ -214,13 +214,13 @@ function App() {
           onChange={handleFileSelect}
           style={{ display: 'none' }}
           id="fileInput"
-          disabled={!isConnected}
+          disabled={!IsConnected}
         />
       </div>
-      <button className="btn" onClick={() => document.getElementById('fileInput').click()} disabled={!isConnected}>
+      <button className="btn" onClick={() => document.getElementById('fileInput').click()} disabled={!IsConnected}>
         Seleziona File
       </button>
-      <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }} disabled={!isConnected}>
+      <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }} disabled={!IsConnected}>
         Carica File
       </button>
 
@@ -251,8 +251,8 @@ function App() {
       )}
 
       <div className="websocket-status">
-        <i className={`fas fa-circle semaforo ${isConnected ? 'green' : 'red'}`}></i>
-        {!isConnected && <p>Connessione con la WebSocket scaduta, aggiorna la pagina</p>}
+        <i className={`fas fa-circle semaforo ${IsConnected ? 'green' : 'red'}`}></i>
+        {!IsConnected && <p>Connessione con la WebSocket scaduta, aggiorna la pagina</p>}
       </div>
     </div>
   );
