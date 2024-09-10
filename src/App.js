@@ -15,7 +15,11 @@ function App() {
   const [ws, setWs] = useState(null);
   const [webSocketMessage, setWebSocketMessage] = useState('');
   const [timer, setTimer] = useState(null);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const togglePopup = () => {
+    setIsPopupOpen(!isPopupOpen); // Cambia lo stato del popup
+  };
 
   //Aggiunta stili per FontAwesome
   useEffect(() => {
@@ -246,12 +250,23 @@ function App() {
   return (
     <div className="uploader-container">
       <div className="title-container">
-        <h1>Allega qui il tuo file:</h1>
-        <div className="info-icon-container">
-          <i className="fas fa-info-circle info-icon"></i>
-          <div className="tooltip">Inserisci qui le informazioni che desideri mostrare in futuro.jtrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</div>
-        </div>
+        <h2>
+          Allega qui il tuo file: <span onClick={togglePopup} style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}>
+            (Clicca qui per visualizzare le istruzioni)
+          </span>
+        </h2>
       </div>
+
+      {isPopupOpen && (
+        <div className="popup">
+          <div className="popup-content">
+            <h2>Informazioni sul formato corretto del file</h2>
+            <p>Qui puoi aggiungere qualsiasi informazione desideri.</p>
+            <button className='btn' onClick={togglePopup}>Chiudi</button>
+          </div>
+        </div>
+      )}
+    
 
       <div
         className={`dropzone ${isDragging ? 'dragging' : ''}`}
