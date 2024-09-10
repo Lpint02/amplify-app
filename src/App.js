@@ -85,18 +85,17 @@ function App() {
   }, []);
 
   const handleFileSelect = (event) => {
-    const selectedFile = event.target.files[0];
+    if (IsConnected) {
+      const selectedFile = event.target.files[0];
 
-    const maxSizeInBytes = 125 * 1024 * 1024; 
-
-    if (selectedFile.size > maxSizeInBytes) {
-      setError('Il file selezionato supera i 125 MB. Seleziona un file più piccolo.');
-      setFile(null); 
-    } else {
+      if (selectedFile.size > 125 * 1024 * 1024) {
+        alert('Il file è troppo grande. La dimensione massima consentita è 125MB.');
+        return;
+      }
+    
       setFile(selectedFile);
       setUploadProgress(0);
       setSuccess(false);
-      setError(''); 
     }
   };
 
@@ -115,7 +114,14 @@ function App() {
     if (IsConnected) {
       event.preventDefault();
       setIsDragging(false);
+
       const droppedFile = event.dataTransfer.files[0];
+
+      if (droppedFile.size > 125 * 1024 * 1024) {
+        alert('Il file è troppo grande. La dimensione massima consentita è 125MB.');
+        return;
+      }
+
       setFile(droppedFile);
       setUploadProgress(0);
       setSuccess(false);
