@@ -250,19 +250,22 @@ function App() {
   return (
     <div className="uploader-container">
       <div className="title-container">
-        <h2>
-          Allega qui il tuo file: <span onClick={togglePopup} style={{ cursor: "pointer", color: "blue", textDecoration: "underline" }}>
-            (Clicca qui per visualizzare le istruzioni)
-          </span>
-        </h2>
+        <h2 onClick={togglePopup} style={{ cursor: 'pointer' }}>Allega qui il tuo file: (clicca per maggiori info)</h2>
       </div>
 
       {isPopupOpen && (
-        <div className="popup">
+        <div className="popup-overlay">
           <div className="popup-content">
+            <button className="popup-close" onClick={togglePopup}>X</button>
             <h2>Informazioni sul formato corretto del file</h2>
-            <p>Qui puoi aggiungere qualsiasi informazione desideri.</p>
-            <button className='btn' onClick={togglePopup}>Chiudi</button>
+            <p>
+              Quando si parla di costruzione dal basso, si intende generalmente la ripresa del gioco dalla rimessa dal fondo che inizia con un calcio del portiere verso i giocatori più prossimi nella sua porzione di campo. 
+              La squadra è chiamata a costruire il gioco dal basso anche quando la palla arretra verso il proprio portiere, costringendo tutti i reparti a ripiegare per iniziare una nuova azione coinvolgendo l’estremo difensore. 
+              Spesso inoltre, la scelta di far arretrare il pallone rappresenta la precisa scelta di  attrarre gli avversari ampliando il campo a disposizione: una sorta di invito al pressing in modo da  disordinare la loro struttura 
+              difensiva e generare una superiorità numerica o ottenere vantaggi in termini di spazi da attaccare.
+              Così intesa, la costruzione dal basso non presenta tratti peculiari; ciò che la caratterizza è la sua interpretazione.
+              Ad esempio, il giocatore può scegliere di verticalizzare subito il gioco alla ricerca di un compagno nella zona di centrocampo o verso la metà campo difensiva avversaria. In alternativa, le squadra può scegliere di opporsi all’attacco degli avversari e alla loro disposizione attraverso una costruzione fatta di passaggi ravvicinati e continue ricerche di linee di passaggio per superare le linee di pressione avversarie, aggredendo quindi gli spazi in modo progressivo e senza scavalcarli con un rilancio in avanti.
+            </p>
           </div>
         </div>
       )}
