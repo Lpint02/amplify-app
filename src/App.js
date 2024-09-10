@@ -13,7 +13,7 @@ function App() {
   const [connectionId, setConnectionId] = useState('');
   const [IsConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState(null);
-  const [webSocketMessage, setWebSocketMessage] = useState('Connessione WebSocket in corso...');
+  const [webSocketMessage, setWebSocketMessage] = useState('');
   const [timer, setTimer] = useState(null);
 
 
@@ -43,12 +43,21 @@ function App() {
         setConnectionId(response.data.connectionId);
         setIsConnected(true);
 
-        const timerId = setTimeout(() => {
-          setWebSocketMessage('Connessione con la WebSocket scaduta, aggiorna la pagina');
-          setIsConnected(false);
-        }, 10 * 60 * 1000); 
+        // Imposta il timer di aggiornamento
+        const startTime = Date.now(); 
+        const timerId = setInterval(() => {
+        const elapsed = Math.floor((Date.now() - startTime) / 1000); 
+        setWebSocketMessage(`Connessione attiva da ${elapsed} secondi.`);
+      }, 1000); 
 
-        setTimer(timerId);
+      // Timeout per scadenza connessione
+      const connectionTimeout = setTimeout(() => {
+        setWebSocketMessage('Connessione con la WebSocket scaduta, aggiorna la pagina');
+        setIsConnected(false);
+        clearInterval(timerId);
+      }, 10 * 60 * 1000); 
+
+      setTimer({ timerId, connectionTimeout });
 
       } catch (error) {
         console.error('Error fetching connectionId:', error);
@@ -88,19 +97,22 @@ function App() {
       console.error('WebSocket error:', event);
       setIsConnected(false);
       setWebSocketMessage('Errore nella connessione WebSocket');
-      clearTimeout(timer); 
+      clearInterval(timer.timerId);
+      clearTimeout(timer.connectionTimeout); 
     };
 
     websocket.onclose = () => {
       console.log('WebSocket connection closed');
       setIsConnected(false); 
       setWebSocketMessage('Connessione con la WebSocket scaduta, aggiorna la pagina');
-      clearTimeout(timer);
+      clearInterval(timer.timerId);
+      clearTimeout(timer.connectionTimeout);
     };
 
     return () => {
       websocket.close();
-      clearTimeout(timer); 
+      clearInterval(timer.timerId);
+      clearTimeout(timer.connectionTimeout); 
     };
   }, []);
 
@@ -108,7 +120,7 @@ function App() {
     if (IsConnected) {
       const selectedFile = event.target.files[0];
 
-      if (selectedFile.size > 125 * 1024 * 1024) {
+      if (selectedFile.size > 126 * 1024 * 1024) {
         alert('Il file è troppo grande. La dimensione massima consentita è 125MB.');
         return;
       }
@@ -286,7 +298,7 @@ function App() {
       )}
 
       <div className="websocket-status">
-        <p>{IsConnected}</p>
+        <p>{webSocketMessage}</p>
         <i className={`fas fa-circle semaforo ${IsConnected ? 'green' : 'red'}`}></i>
       </div>
     </div>
