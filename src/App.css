@@ -178,3 +178,11 @@ body {
 .semaforo.green {
   color: green;
 }
+
+.websocket-status {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-size: 18px;
+  color: black;
+}

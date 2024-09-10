@@ -28,6 +28,7 @@ function App() {
 
     websocket.onopen = async () => {
       console.log('WebSocket connection established');
+
       try {
         const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
           headers: {
@@ -36,18 +37,16 @@ function App() {
         });
         setConnectionId(response.data.connectionId);
         setIsConnected(true); 
-        //setShowConnectedMessage(true); 
       } catch (error) {
         console.error('Error fetching connectionId:', error);
       }
     };
 
     websocket.onmessage = (event) => {
-      //console.log('Event received:', event);
       const data = JSON.parse(event.data);
       console.log('Data received from WebSocket:', data);
 
-      // Assuming the message contains the filename to match with the uploaded files
+      // In base allo stato ricevuto, aggiorna il semaforo
       if (data.status === 'completed' && data.file) {
         setUploadedFiles(prevFiles =>
           prevFiles.map(uploadedFile =>
@@ -92,8 +91,10 @@ function App() {
   };
 
   const handleDragOver = (event) => {
-    event.preventDefault();
-    setIsDragging(true);
+    if (isConnected) {
+      event.preventDefault();
+      setIsDragging(true);
+    }
   };
 
   const handleDragLeave = () => {
@@ -101,15 +102,22 @@ function App() {
   };
 
   const handleDrop = (event) => {
-    event.preventDefault();
-    setIsDragging(false);
-    const droppedFile = event.dataTransfer.files[0];
-    setFile(droppedFile);
-    setUploadProgress(0);
-    setSuccess(false);
+    if (isConnected) {
+      event.preventDefault();
+      setIsDragging(false);
+      const droppedFile = event.dataTransfer.files[0];
+      setFile(droppedFile);
+      setUploadProgress(0);
+      setSuccess(false);
+    }
   };
 
   const uploadFile = async () => {
+    if (!isConnected) {
+      alert('Connessione WebSocket non stabilita. Attendi la connessione.');
+      return;
+    }
+
     if (!file) {
         alert('Nessun file selezionato.');
         return;
@@ -136,8 +144,6 @@ function App() {
         const bucketName = response.data.bucketName; 
         const objectKey = response.data.key; 
         console.log('URL presigned ricevuta:', uploadUrl);
-        //console.log('Nome del bucket:', bucketName);
-        //console.log('Object key:', objectKey);
         setError('');
 
         // Step 2: Carica il file usando la URL presigned
@@ -191,6 +197,7 @@ function App() {
 
   return (
     <div className="uploader-container">
+      {!isConnected && <p>Connessione WebSocket in corso...</p>}
       <div
         className={`dropzone ${isDragging ? 'dragging' : ''}`}
         onDragOver={handleDragOver}
@@ -207,10 +214,13 @@ function App() {
           onChange={handleFileSelect}
           style={{ display: 'none' }}
           id="fileInput"
+          disabled={!isConnected}
         />
       </div>
-      <button className="btn" onClick={() => document.getElementById('fileInput').click()}>Seleziona File</button>
-      <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }}>
+      <button className="btn" onClick={() => document.getElementById('fileInput').click()} disabled={!isConnected}>
+        Seleziona File
+      </button>
+      <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }} disabled={!isConnected}>
         Carica File
       </button>
 
@@ -239,6 +249,11 @@ function App() {
           </ul>
         </>
       )}
+
+      <div className="websocket-status">
+        <i className={`fas fa-circle semaforo ${isConnected ? 'green' : 'red'}`}></i>
+        {!isConnected && <p>Connessione con la WebSocket scaduta, aggiorna la pagina</p>}
+      </div>
     </div>
   );
 }
