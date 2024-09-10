@@ -179,6 +179,10 @@ body {
   color: green;
 }
 
+.semaforo.blue {
+  color: rgb(39, 148, 199);
+}
+
 .websocket-status {
   position: fixed;
   bottom: 10px;

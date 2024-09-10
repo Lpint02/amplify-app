@@ -13,7 +13,11 @@ function App() {
   const [connectionId, setConnectionId] = useState('');
   const [IsConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState(null);
+  const [webSocketMessage, setWebSocketMessage] = useState('Connessione WebSocket in corso...');
+  const [timer, setTimer] = useState(null);
 
+
+  //Aggiunta stili per FontAwesome
   useEffect(() => {
     const link = document.createElement('link');
     link.rel = 'stylesheet';
@@ -28,6 +32,7 @@ function App() {
 
     websocket.onopen = async () => {
       console.log('WebSocket connection established');
+      setWebSocketMessage('Connessione WebSocket in corso...');
 
       try {
         const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
@@ -36,9 +41,19 @@ function App() {
           }
         });
         setConnectionId(response.data.connectionId);
-        setIsConnected(true); 
+        setIsConnected(true);
+
+        const timerId = setTimeout(() => {
+          setWebSocketMessage('Connessione con la WebSocket scaduta, aggiorna la pagina');
+          setIsConnected(false);
+        }, 10 * 60 * 1000); 
+
+        setTimer(timerId);
+
       } catch (error) {
         console.error('Error fetching connectionId:', error);
+        setIsConnected(false);
+        setWebSocketMessage('Errore nella connessione WebSocket');
       }
     };
 
@@ -71,16 +86,21 @@ function App() {
 
     websocket.onerror = (event) => {
       console.error('WebSocket error:', event);
-      setIsConnected(false); 
+      setIsConnected(false);
+      setWebSocketMessage('Errore nella connessione WebSocket');
+      clearTimeout(timer); 
     };
 
     websocket.onclose = () => {
       console.log('WebSocket connection closed');
       setIsConnected(false); 
+      setWebSocketMessage('Connessione con la WebSocket scaduta, aggiorna la pagina');
+      clearTimeout(timer);
     };
 
     return () => {
       websocket.close();
+      clearTimeout(timer); 
     };
   }, []);
 
@@ -187,7 +207,7 @@ function App() {
       // Aggiungi il file con stato "In attesa" 
       setUploadedFiles(prevFiles => [
         ...prevFiles,
-        { name: file.name, status: 'Caricamento avvenuto. Elaborazione in corso....', color: 'red' } 
+        { name: file.name, status: 'Caricamento avvenuto. Elaborazione in corso....', color: 'blue' } 
       ]);
       setSuccess(true);
       setFile(null); // Resetta il file
@@ -213,7 +233,6 @@ function App() {
 
   return (
     <div className="uploader-container">
-      {!IsConnected && <p>Connessione WebSocket in corso...</p>}
       <div
         className={`dropzone ${isDragging ? 'dragging' : ''}`}
         onDragOver={handleDragOver}
@@ -267,7 +286,7 @@ function App() {
       )}
 
       <div className="websocket-status">
-        {!IsConnected && <p>Connessione con la WebSocket scaduta, aggiorna la pagina</p>}
+        <p>{connectionMessage}</p>
         <i className={`fas fa-circle semaforo ${IsConnected ? 'green' : 'red'}`}></i>
       </div>
     </div>
