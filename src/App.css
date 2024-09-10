@@ -111,6 +111,59 @@ body {
   font-family: Arial, sans-serif;
 }
 
+.title-container {
+  display: flex;
+  align-items: center;
+}
+
+.title-container h2 {
+  margin-right: 10px;
+}
+
+.info-icon-container {
+  position: relative;
+  display: inline-block;
+}
+
+.info-icon {
+  font-size: 18px;
+  color: #333;
+  cursor: pointer;
+}
+
+.tooltip {
+  visibility: hidden;
+  width: 200px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Posizionamento sopra l'icona */
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; /* Punta la freccia verso il basso */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.info-icon-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 .progress-container {
   width: 100%;
   background-color: #ddd;
