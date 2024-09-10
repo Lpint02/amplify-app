@@ -43,7 +43,7 @@ function App() {
     };
 
     websocket.onmessage = (event) => {
-      console.log('Event received:', event);
+      //console.log('Event received:', event);
       const data = JSON.parse(event.data);
       console.log('Data received from WebSocket:', data);
 
@@ -233,7 +233,7 @@ function App() {
             {uploadedFiles.map((uploadedFile, index) => (
               <li key={index}>
                 <span>{uploadedFile.name} - {uploadedFile.status}</span>
-                <i className={`fas fa-circle ${uploadedFile.color}`}></i>
+                <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
                 </li>
             ))}
           </ul>
