@@ -182,7 +182,7 @@ body {
 .websocket-status {
   position: fixed;
   bottom: 10px;
-  left: 10px;
+  left: 5px;
   font-size: 18px;
   color: black;
 }

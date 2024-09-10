@@ -251,8 +251,8 @@ function App() {
       )}
 
       <div className="websocket-status">
-        <i className={`fas fa-circle semaforo ${IsConnected ? 'green' : 'red'}`}></i>
         {!IsConnected && <p>Connessione con la WebSocket scaduta, aggiorna la pagina</p>}
+        <i className={`fas fa-circle semaforo ${IsConnected ? 'green' : 'red'}`}></i>
       </div>
     </div>
   );
