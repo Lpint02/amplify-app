@@ -246,10 +246,10 @@ function App() {
   return (
     <div className="uploader-container">
       <div className="title-container">
-        <h2>Allega qui il tuo file:</h2>
+        <h1>Allega qui il tuo file:</h1>
         <div className="info-icon-container">
           <i className="fas fa-info-circle info-icon"></i>
-          <div className="tooltip">Inserisci qui le informazioni che desideri mostrare in futuro.</div>
+          <div className="tooltip">Inserisci qui le informazioni che desideri mostrare in futuro.jtrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</div>
         </div>
       </div>
 

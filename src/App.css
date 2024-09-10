@@ -118,6 +118,10 @@ body {
 
 .title-container h2 {
   margin-right: 10px;
+  color: #8B0000;
+  font-size: 28px; 
+  margin-top: -20px; 
+  text-align: center;
 }
 
 .info-icon-container {
