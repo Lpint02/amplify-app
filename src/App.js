@@ -137,7 +137,7 @@ function App() {
 
       const droppedFile = event.dataTransfer.files[0];
 
-      if (droppedFile.size > 125 * 1024 * 1024) {
+      if (droppedFile.size > 126 * 1024 * 1024) {
         alert('Il file è troppo grande. La dimensione massima consentita è 125MB.');
         return;
       }
