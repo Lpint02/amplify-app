@@ -48,7 +48,8 @@ function App() {
 
       // In base allo stato ricevuto, aggiorna il semaforo
       if (data.status === 'completed' && data.file) {
-        console.log(`Elaborazione del file "${data.file}" completata in ${data.time.toFixed(6)} secondi.`);
+        const processingTime = data.time !== undefined ? data.time.toFixed(6) : 'non disponibile';
+        console.log(`Elaborazione del file "${data.file}" completata in ${processingTime} secondi.`);
         setUploadedFiles(prevFiles =>
           prevFiles.map(uploadedFile =>
             uploadedFile.name === data.file
