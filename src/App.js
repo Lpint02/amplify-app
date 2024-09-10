@@ -286,7 +286,7 @@ function App() {
       )}
 
       <div className="websocket-status">
-        <p>{connectionMessage}</p>
+        <p>{IsConnected}</p>
         <i className={`fas fa-circle semaforo ${IsConnected ? 'green' : 'red'}`}></i>
       </div>
     </div>
