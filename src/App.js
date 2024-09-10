@@ -86,9 +86,18 @@ function App() {
 
   const handleFileSelect = (event) => {
     const selectedFile = event.target.files[0];
-    setFile(selectedFile);
-    setUploadProgress(0);
-    setSuccess(false);
+
+    const maxSizeInBytes = 125 * 1024 * 1024; 
+
+    if (selectedFile.size > maxSizeInBytes) {
+      setError('Il file selezionato supera i 125 MB. Seleziona un file più piccolo.');
+      setFile(null); 
+    } else {
+      setFile(selectedFile);
+      setUploadProgress(0);
+      setSuccess(false);
+      setError(''); 
+    }
   };
 
   const handleDragOver = (event) => {
@@ -208,7 +217,7 @@ function App() {
         {file ? (
           <p>{file.name}</p>
         ) : (
-          <p>Trascina un file qui o clicca per selezionare un file</p>
+          <p>Trascina un file qui o clicca per selezionare un file. Dimensione massima: 125MB. </p>
         )}
         <input
           type="file"
