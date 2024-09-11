@@ -270,7 +270,6 @@ function App() {
         </div>
       )}
     
-
       <div
         className={`dropzone ${isDragging ? 'dragging' : ''}`}
         onDragOver={handleDragOver}
