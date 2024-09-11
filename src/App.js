@@ -260,13 +260,12 @@ function App() {
             <h2>Informazioni sul formato corretto del file</h2>
             <p>
               Questa applicazione web restituisce il vettore soluzione x del sistema 𝐴𝑥=𝑏. Per garantire che il file venga elaborato correttamente, assicurati che il file soddisfi le seguenti caratteristiche:
-              1. Il file deve essere in formato .txt
-              2. Il file deve contenere la matrice dei coefficenti A di dimensione n x n, seguita dal vettore dei termini noti b di dimensione n
-              3. La matrice deve essere rappresentata come una serie di righe, dove ogni riga contiene gli elementi separati da virgole. Le righe sono separate tra loro da un punto e virgola.
-              4. La matrice 𝐴 deve essere seguita da una riga di separazione con tre trattini ---
-              5. Il vettore 𝑏 deve essere rappresentato come una serie di elementi separati da virgole
-              6. Il file deve essere salvato in formato .txt
-              7. La dimensione massima del file è 125 MB.
+              1. Il file deve contenere la matrice dei coefficenti A di dimensione n x n, seguita dal vettore dei termini noti b di dimensione n
+              2. La matrice deve essere rappresentata come una serie di righe, dove ogni riga contiene gli elementi separati da virgole. Le righe sono separate tra loro da un punto e virgola.
+              3. La matrice 𝐴 deve essere seguita da una riga di separazione con tre trattini ---
+              4. Il vettore 𝑏 deve essere rappresentato come una serie di elementi separati da virgole
+              5. Il file deve essere salvato in formato .txt
+              6. La dimensione massima del file è 125 MB.
               Se hai bisogno di assistenza per generare la matrice, consulta il codice disponibile nella repo GitHub.
             </p>
           </div>

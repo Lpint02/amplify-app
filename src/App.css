@@ -153,6 +153,10 @@ body {
   margin-top: 20px;
 }
 
+.popup-content p {
+  white-space: pre-line;
+}
+
 .progress-container {
   width: 100%;
   background-color: #ddd;
