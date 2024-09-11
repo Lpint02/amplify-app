@@ -259,12 +259,15 @@ function App() {
             <button className="popup-close" onClick={togglePopup}>X</button>
             <h2>Informazioni sul formato corretto del file</h2>
             <p>
-              Quando si parla di costruzione dal basso, si intende generalmente la ripresa del gioco dalla rimessa dal fondo che inizia con un calcio del portiere verso i giocatori più prossimi nella sua porzione di campo. 
-              La squadra è chiamata a costruire il gioco dal basso anche quando la palla arretra verso il proprio portiere, costringendo tutti i reparti a ripiegare per iniziare una nuova azione coinvolgendo l’estremo difensore. 
-              Spesso inoltre, la scelta di far arretrare il pallone rappresenta la precisa scelta di  attrarre gli avversari ampliando il campo a disposizione: una sorta di invito al pressing in modo da  disordinare la loro struttura 
-              difensiva e generare una superiorità numerica o ottenere vantaggi in termini di spazi da attaccare.
-              Così intesa, la costruzione dal basso non presenta tratti peculiari; ciò che la caratterizza è la sua interpretazione.
-              Ad esempio, il giocatore può scegliere di verticalizzare subito il gioco alla ricerca di un compagno nella zona di centrocampo o verso la metà campo difensiva avversaria. In alternativa, le squadra può scegliere di opporsi all’attacco degli avversari e alla loro disposizione attraverso una costruzione fatta di passaggi ravvicinati e continue ricerche di linee di passaggio per superare le linee di pressione avversarie, aggredendo quindi gli spazi in modo progressivo e senza scavalcarli con un rilancio in avanti.
+              Questa applicazione web restituisce il vettore soluzione x del sistema 𝐴𝑥=𝑏. Per garantire che il file venga elaborato correttamente, assicurati che il file soddisfi le seguenti caratteristiche:
+              1. Il file deve essere in formato .txt
+              2. Il file deve contenere la matrice dei coefficenti A di dimensione n x n, seguita dal vettore dei termini noti b di dimensione n
+              3. La matrice deve essere rappresentata come una serie di righe, dove ogni riga contiene gli elementi separati da virgole. Le righe sono separate tra loro da un punto e virgola.
+              4. La matrice 𝐴 deve essere seguita da una riga di separazione con tre trattini ---
+              5. Il vettore 𝑏 deve essere rappresentato come una serie di elementi separati da virgole
+              6. Il file deve essere salvato in formato .txt
+              7. La dimensione massima del file è 125 MB.
+              Se hai bisogno di assistenza per generare la matrice, consulta il codice disponibile nella repo GitHub.
             </p>
           </div>
         </div>
