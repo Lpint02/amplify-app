@@ -154,7 +154,7 @@ body {
 }
 
 .popup-content p {
-  white-space: pre-line;
+  text-align: left;
 }
 
 .progress-container {
