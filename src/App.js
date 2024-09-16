@@ -80,7 +80,7 @@ function App() {
         setUploadedFiles(prevFiles =>
           prevFiles.map(uploadedFile =>
             uploadedFile.name === data.file
-              ? { ...uploadedFile, status: 'Elaborazione completata', color: 'green' }
+              ? { ...uploadedFile, status: 'Elaborazione completata in ${data.time.toFixed(6)} secondi', color: 'green' }
               : uploadedFile
           )
         );
@@ -313,14 +313,31 @@ function App() {
       {uploadedFiles.length > 0 && (
         <>
           <h2 className="files-title">Matrici in elaborazione o elaborate</h2>
-          <ul className="uploaded-files-list">
+          <div className="file-processing-table-container">
+          <table className="file-processing-table">
+            <thead>
+              <tr>
+                <th>Nome del file</th>
+                <th>Stato</th>
+                <th>Semaforo</th>
+                <th>soluzione</th>
+            </tr>
+          </thead>
+          <tbody>
             {uploadedFiles.map((uploadedFile, index) => (
-              <li key={index}>
-                <span>{uploadedFile.name} - {uploadedFile.status}</span>
-                <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
-                </li>
+              <tr key={index}>
+                <td>{uploadedFile.name}</td>
+                <td>{uploadedFile.status}</td>
+                <td>{uploadedFile.message}</td>
+                <td>
+                  <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
+                </td>
+                <td>Segnaposto testo fisso per download</td>
+              </tr>
             ))}
-          </ul>
+          </tbody>
+        </table>
+      </div>
         </>
       )}
 
