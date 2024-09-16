@@ -80,7 +80,7 @@ function App() {
         setUploadedFiles(prevFiles =>
           prevFiles.map(uploadedFile =>
             uploadedFile.name === data.file
-              ? { ...uploadedFile, status: 'Elaborazione completata in ${data.time.toFixed(6)} secondi', color: 'green' }
+              ? { ...uploadedFile, status: 'Elaborazione completata', color: 'green' } //devo capire come far stampare il tempo
               : uploadedFile
           )
         );
@@ -328,7 +328,6 @@ function App() {
               <tr key={index}>
                 <td>{uploadedFile.name}</td>
                 <td>{uploadedFile.status}</td>
-                <td>{uploadedFile.message}</td>
                 <td>
                   <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
                 </td>
