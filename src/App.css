@@ -186,6 +186,7 @@ body {
 .file-processing-table-container {
   width: 150%;
   margin-left: -25%;
+  margin-right: -25%;
   overflow-x: auto;
   margin-top: 20px;
   margin: 20px auto;
