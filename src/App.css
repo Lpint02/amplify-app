@@ -15,15 +15,12 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.App-link {
-  color: #e9b51b;
-}
  
 button { 
   padding: 20px 40px; 
   margin: 20px; 
   font-size: 24px; 
-  background-color: #9b2032; 
+  background-color: #115ea7; 
   border: none; 
   color: #fffeef; 
   cursor: pointer; 
@@ -54,12 +51,12 @@ button:hover {
 }
 
 .title {
-  color: #9b2032;
+  color: #115ea7;
   margin-bottom: 20px;
 }
 
 .uploader-container {
-  max-width: 450px;
+  max-width: 500px;
   margin: 60px auto;
   text-align: center;
 }
@@ -76,7 +73,7 @@ button:hover {
 
 .dropzone.dragging {
   background-color: #fffeef;
-  border-color: #9b2032;
+  border-color: #115ea7;
 }
 
 .dropzone p {
@@ -86,7 +83,7 @@ button:hover {
 }
 
 .btn {
-  background-color: #9b2032;
+  background-color: #115ea7;
   color: #fffeef;
   border: none;
   padding: 15px 30px;
@@ -118,7 +115,7 @@ body {
 
 .title-container h2 {
   margin-right: 10px;
-  color: #8B0000;
+  color: #115ea7;
   font-size: 28px; 
   margin-top: -20px; 
   text-align: center;
@@ -168,7 +165,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  background-color: #9b2032;
+  background-color: #115ea7;
   text-align: center;
   line-height: 30px; 
   color: white;
@@ -179,7 +176,7 @@ body {
 .files-title {
   font-size: 24px; 
   font-weight: bold;
-  color: #9b2032; 
+  color: #115ea7; 
   text-align: center;
   margin-bottom: 10px;
 }
@@ -188,6 +185,7 @@ body {
   width: 100%;
   overflow-x: auto;
   margin-top: 20px;
+  max-width: 100%;
 }
 
 .file-processing-table {

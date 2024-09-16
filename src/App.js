@@ -96,7 +96,6 @@ function App() {
       }
     };
 
-
     websocket.onerror = (event) => {
       console.error('WebSocket error:', event);
       setIsConnected(false);
