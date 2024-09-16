@@ -185,8 +185,9 @@ body {
 
 .file-processing-table-container {
   width: 150%;
-  margin-left: -25%;
-  margin-right: -25%;
+  position: relative;
+  left: 50%; /* Sposta il contenitore di 50% verso destra */
+  transform: translateX(-50%); /* Bilancia il movimento centrando il contenuto */
   overflow-x: auto;
   margin-top: 20px;
   margin: 20px auto;
