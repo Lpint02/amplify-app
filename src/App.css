@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  width: 100%;
+  width: 1500px;
 }
 
 .App-header {
@@ -183,7 +183,6 @@ body {
 }
 
 .file-processing-table-container {
-  max-width: 1500px;
   width: 100%;
   overflow-x: auto;
   margin-top: 20px;
@@ -193,7 +192,7 @@ body {
 .file-processing-table {
   width: 100%;
   border-collapse: collapse;
-  /*margin: 0 auto;*/
+  margin: 0 auto;
   font-family: Arial, sans-serif;
 }
 
