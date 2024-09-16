@@ -330,7 +330,7 @@ function App() {
                   <td>
                     <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
                   </td>
-                  <td>Segnaposto testo fisso per download</td>
+                  <td>Segnaposto download</td>
                 </tr>
               ))}
             </tbody>
