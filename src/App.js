@@ -313,27 +313,27 @@ function App() {
         <>
           <h2 className="files-title">Matrici in elaborazione o elaborate</h2>
           <div className="file-processing-table-container">
-          <table className="file-processing-table">
-            <thead>
-              <tr>
-                <th>Nome del file</th>
-                <th>Stato</th>
-                <th>Semaforo</th>
-                <th>soluzione</th>
-            </tr>
-          </thead>
-          <tbody>
-            {uploadedFiles.map((uploadedFile, index) => (
-              <tr key={index}>
-                <td>{uploadedFile.name}</td>
-                <td>{uploadedFile.status}</td>
-                <td>
-                  <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
-                </td>
-                <td>Segnaposto testo fisso per download</td>
+            <table className="file-processing-table">
+              <thead>
+                <tr>
+                  <th>Nome del file</th>
+                  <th>Stato</th>
+                  <th>Semaforo</th>
+                  <th>soluzione</th>
               </tr>
-            ))}
-          </tbody>
+            </thead>
+            <tbody>
+              {uploadedFiles.map((uploadedFile, index) => (
+                <tr key={index}>
+                  <td>{uploadedFile.name}</td>
+                  <td>{uploadedFile.status}</td>
+                  <td>
+                    <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
+                  </td>
+                  <td>Segnaposto testo fisso per download</td>
+                </tr>
+              ))}
+            </tbody>
         </table>
       </div>
         </>
