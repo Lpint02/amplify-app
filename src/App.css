@@ -184,14 +184,14 @@ body {
 }
 
 .file-processing-table-container {
-  width: 100%;
+  width: 120%;
   overflow-x: auto;
   margin-top: 20px;
   margin: 20px auto;
 }
 
 .file-processing-table {
-  width: 100%;
+  /*width: 100%;*/
   border-collapse: collapse;
   margin: 0 auto;
   font-family: Arial, sans-serif;
