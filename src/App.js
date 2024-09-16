@@ -249,7 +249,8 @@ function App() {
   return (
     <div className="uploader-container">
       <div className="title-container">
-        <h2 onClick={togglePopup} style={{ cursor: 'pointer' }}>Allega qui il tuo file: (clicca per maggiori info)</h2>
+        <h2 onClick={togglePopup} style={{ cursor: 'pointer' }}>Centro di Calcolo per Elaborazioni Matematiche</h2>
+        <p>Caricamento e risoluzione di matrici di grandi dimensioni con capacità di elaborazione distribuita</p>
       </div>
 
       {isPopupOpen && (
