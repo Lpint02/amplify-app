@@ -183,8 +183,7 @@ body {
 }
 
 .file-processing-table-container {
-  max-width: 1200px;
-  width: 100%;
+  width: 1200px;
   overflow-x: auto;
   margin-top: 20px;
   margin: 0px auto;
