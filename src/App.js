@@ -318,16 +318,14 @@ function App() {
                 <tr>
                   <th>Nome del file</th>
                   <th>Stato</th>
-                  <th>Semaforo</th>
               </tr>
             </thead>
             <tbody>
               {uploadedFiles.map((uploadedFile, index) => (
                 <tr key={index}>
                   <td>{uploadedFile.name}</td>
-                  <td>{uploadedFile.status}</td>
-                  <td>
-                    <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
+                  <td className="semaforo-container">{uploadedFile.status}
+                    <span> <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i></span>
                   </td>
                 </tr>
               ))}

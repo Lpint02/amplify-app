@@ -217,11 +217,18 @@ body {
   max-width: none; 
 }
 
+.semaforo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .semaforo {
   width: 20px;
   height: 20px;
   border-radius: 50%;
   display: inline-block;
+  margin-left: 8px;
 }
 
 .download-placeholder {
