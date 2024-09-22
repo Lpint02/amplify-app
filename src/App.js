@@ -247,7 +247,7 @@ function App() {
   }, [success]);
 
   return (
-    <div className="uploader-container">
+    <div className={`uploader-container ${uploadedFiles.length > 0 ? 'shifted' : ''}`}>
       <div className="title-container">
         <h2 onClick={togglePopup} style={{ cursor: 'pointer' }}>Centro di Calcolo per Elaborazioni Matematiche</h2>
       </div>

@@ -59,18 +59,24 @@ button:hover {
 
 .uploader-container {
   max-width: 500px;
-  margin: 60px auto;
+  margin: 0 auto;
   text-align: center;
+  transition: all 0.3s ease-in-out;
 }
+
+.uploader-container.shifted {
+  transform: translateY(-50px); 
+}
+
 
 .dropzone {
   border: 3px dashed #cccccc;
-  padding: 50px;
-  border-radius: 10px;
+  padding: 40px;
+  border-radius: 20px;
   background-color: white;
   transition: background-color 0.3s ease, border-color 0.3s ease;
   cursor: pointer;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .dropzone.dragging {
@@ -119,7 +125,7 @@ body {
   margin-right: 10px;
   color: #115ea7;
   font-size: 28px; 
-  margin-top: -20px; 
+  margin-bottom: 20px;
   text-align: center;
 }
 
