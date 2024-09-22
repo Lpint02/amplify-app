@@ -188,7 +188,6 @@ body {
   position: relative;
   left: 50%; 
   transform: translateX(-50%); 
-  overflow-x: auto;
   margin-top: 20px;
   margin: 20px auto;
 }
