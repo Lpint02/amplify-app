@@ -319,7 +319,6 @@ function App() {
                   <th>Nome del file</th>
                   <th>Stato</th>
                   <th>Semaforo</th>
-                  <th>soluzione</th>
               </tr>
             </thead>
             <tbody>
@@ -330,7 +329,6 @@ function App() {
                   <td>
                     <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i>
                   </td>
-                  <td>Segnaposto download</td>
                 </tr>
               ))}
             </tbody>
