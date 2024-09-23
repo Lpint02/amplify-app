@@ -64,16 +64,21 @@ button:hover {
 }
 
 .dropzone {
-  border: 3px dashed #cccccc;
-  padding: 50px;
+  width: 100%;
+  max-width: 600px; 
+  height: 300px; 
+  border: 2px dashed #cccccc;
   border-radius: 10px;
-  background-color: white;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  background-color: #f9f9f9;
   cursor: pointer;
-  margin-bottom: 30px;
-  margin-top: 40px;
-
+  transition: background-color 0.3s ease;
 }
+
+
 
 .dropzone.dragging {
   background-color: #fffeef;
@@ -258,10 +263,68 @@ body {
   color: rgb(39, 148, 199);
 }
 
-.websocket-status {
+.websocket-container {
   position: fixed;
   bottom: 10px;
-  left: 5px;
-  font-size: 18px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 1000; /* Assicurati che l'icona sia visibile sopra altri elementi */
+}
+
+.websocket-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5); /* Sfondo dell'icona */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.websocket-status {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: grey; /* Stato di default */
+  transition: background-color 0.3s ease;
+}
+
+.websocket-status.green {
+  background-color: green; /* Connessione attiva */
+}
+
+.websocket-status.red {
+  background-color: red; /* Connessione interrotta */
+}
+
+.websocket-status.blue {
+  background-color: blue; /* Connessione in corso */
+}
+
+.websocket-status.spinner {
+  border: 4px solid #f3f3f3; 
+  border-top: 4px solid #3498db; 
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  animation: spin 1.5s linear infinite; /* Spinner più fluido */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.websocket-message {
+  display: none;
+  margin-left: 10px;
+  font-size: 12px;
   color: black;
+}
+
+.websocket-icon:hover .websocket-message {
+  display: block;
 }

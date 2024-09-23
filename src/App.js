@@ -13,7 +13,7 @@ function App() {
   const [connectionId, setConnectionId] = useState('');
   const [IsConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState(null);
-  const [webSocketMessage, setWebSocketMessage] = useState('');
+  const [webSocketMessage, setWebSocketMessage] = useState('connecting...');
   const [timer, setTimer] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -30,6 +30,7 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setWebSocketMessage('Connessione WebSocket in corso...');
     // Connessione WebSocket
     const websocket = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
     setWs(websocket);
@@ -237,6 +238,33 @@ function App() {
     }
   };
 
+  const getStatusClass = () => {
+    switch (connectionStatus) {
+      case 'connected':
+        return 'green';
+      case 'disconnected':
+        return 'red';
+      case 'connecting':
+        return 'spinner blue'; // Stato "connessione in corso" con spinner
+      default:
+        return '';
+    }
+  };
+
+  const getStatusMessage = () => {
+    switch (connectionStatus) {
+      case 'connected':
+        return `Connessione WebSocket attiva da ${secondsActive} secondi.`;
+      case 'disconnected':
+        return 'Connessione WebSocket interrotta. Aggiorna la pagina.';
+      case 'connecting':
+        return 'Connessione alla WebSocket in corso...'; // Messaggio durante la connessione
+      default:
+        return '';
+    }
+  };
+
+
   useEffect(() => {
     if (success) {
       const timer = setTimeout(() => {
@@ -335,13 +363,15 @@ function App() {
         </>
       )}
 
-      <div className="websocket-status">
-        <p>{webSocketMessage}</p>
-        <i className={`fas fa-circle semaforo ${IsConnected ? 'green' : 'red'}`}></i>
+      <div className="websocket-container">
+        <div className="websocket-icon">
+          <div className={`websocket-status ${getStatusClass()}`} />
+          <span className="websocket-message">{getStatusMessage()}</span>
       </div>
     </div>
+    </div>
   );
-}
+};
 
 export default App;
 
