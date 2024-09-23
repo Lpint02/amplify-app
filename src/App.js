@@ -239,7 +239,7 @@ function App() {
   };
 
   const getStatusClass = () => {
-    switch (connectionStatus) {
+    switch (webSocketMessage) {
       case 'connected':
         return 'green';
       case 'disconnected':
@@ -252,9 +252,9 @@ function App() {
   };
 
   const getStatusMessage = () => {
-    switch (connectionStatus) {
+    switch (webSocketMessage) {
       case 'connected':
-        return `Connessione WebSocket attiva da ${secondsActive} secondi.`;
+        return `Connessione WebSocket attiva da ${elapsed} secondi.`;
       case 'disconnected':
         return 'Connessione WebSocket interrotta. Aggiorna la pagina.';
       case 'connecting':
