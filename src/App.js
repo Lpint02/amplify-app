@@ -254,7 +254,7 @@ function App() {
   const getStatusMessage = () => {
     switch (webSocketMessage) {
       case 'connected':
-        return `Connessione WebSocket attiva da ${elapsed} secondi.`;
+        return `Connessione WebSocket attiva`;
       case 'disconnected':
         return 'Connessione WebSocket interrotta. Aggiorna la pagina.';
       case 'connecting':
