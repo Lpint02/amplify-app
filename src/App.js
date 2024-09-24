@@ -30,7 +30,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    setWebSocketMessage('Connessione WebSocket in corso...');
     // Connessione WebSocket
     const websocket = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
     setWs(websocket);
@@ -38,7 +37,7 @@ function App() {
 
     websocket.onopen = async () => {
       console.log('WebSocket connection established');
-      setWebSocketMessage('Connessione attiva');
+      setWebSocketMessage('Connessione alla WebSocket attiva');
       setIsConnected(true);
 
       try {
@@ -294,7 +293,7 @@ function App() {
         {file ? (
           <p>{file.name}</p>
         ) : (
-          <p>Trascina un file qui o clicca per selezionare un file. Dimensione massima: 125MB. </p>
+          <p>Dimensione massima: 125MB. </p>
         )}
         <input
           type="file"
