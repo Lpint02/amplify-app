@@ -13,7 +13,7 @@ function App() {
   const [connectionId, setConnectionId] = useState('');
   const [IsConnected, setIsConnected] = useState(false);
   const [ws, setWs] = useState(null);
-  const [webSocketMessage, setWebSocketMessage] = useState('connecting...');
+  const [webSocketMessage, setWebSocketMessage] = useState('');
   const [timer, setTimer] = useState(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -34,10 +34,12 @@ function App() {
     // Connessione WebSocket
     const websocket = new WebSocket('wss://gtofwqtxpe.execute-api.us-east-1.amazonaws.com/production');
     setWs(websocket);
+    setWebSocketMessage('Connessione WebSocket in corso...');
 
     websocket.onopen = async () => {
       console.log('WebSocket connection established');
-      setWebSocketMessage('Connessione WebSocket in corso...');
+      setWebSocketMessage('Connessione attiva');
+      setIsConnected(true);
 
       try {
         const response = await axios.get('https://hkpujzbuu2.execute-api.us-east-1.amazonaws.com/prod/get-connection-id', {
@@ -109,14 +111,14 @@ function App() {
       console.log('WebSocket connection closed');
       setIsConnected(false); 
       setWebSocketMessage('Connessione con la WebSocket scaduta, aggiorna la pagina');
-      clearInterval(timer.timerId);
-      clearTimeout(timer.connectionTimeout);
+      clearInterval(timer?.timerId);
+      clearTimeout(timer?.connectionTimeout);
     };
 
     return () => {
       websocket.close();
-      clearInterval(timer.timerId);
-      clearTimeout(timer.connectionTimeout); 
+      clearInterval(timer?.timerId);
+      clearTimeout(timer?.connectionTimeout); 
     };
   }, []);
 
@@ -239,28 +241,12 @@ function App() {
   };
 
   const getStatusClass = () => {
-    switch (webSocketMessage) {
-      case 'connected':
-        return 'green';
-      case 'disconnected':
-        return 'red';
-      case 'connecting':
-        return 'spinner blue'; // Stato "connessione in corso" con spinner
-      default:
-        return '';
-    }
-  };
-
-  const getStatusMessage = () => {
-    switch (webSocketMessage) {
-      case 'connected':
-        return `Connessione WebSocket attiva`;
-      case 'disconnected':
-        return 'Connessione WebSocket interrotta. Aggiorna la pagina.';
-      case 'connecting':
-        return 'Connessione alla WebSocket in corso...'; // Messaggio durante la connessione
-      default:
-        return '';
+    if (!IsConnected && webSocketMessage.includes('Connessione in corso')) {
+      return 'blue spinner'; // Blu durante la connessione
+    } else if (IsConnected) {
+      return 'green'; // Verde se connesso
+    } else {
+      return 'red'; // Rosso se disconnesso
     }
   };
 
@@ -363,12 +349,10 @@ function App() {
         </>
       )}
 
-      <div className="websocket-container">
-        <div className="websocket-icon">
-          <div className={`websocket-status ${getStatusClass()}`} />
-          <span className="websocket-message">{getStatusMessage()}</span>
+    <div className="websocket-status">
+        <div className={`status-light ${getStatusClass()}`}></div>
+        <span>{webSocketMessage}</span>
       </div>
-    </div>
     </div>
   );
 };
