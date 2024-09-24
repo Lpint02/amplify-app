@@ -272,17 +272,12 @@ body {
   z-index: 1000; /* Assicurati che l'icona sia visibile sopra altri elementi */
 }
 
-.websocket-status {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .status-light {
-  width: 15px;
-  height: 15px;
+  width: 40px; /* Aumenta la dimensione */
+  height: 40px; /* Aumenta la dimensione */
   border-radius: 50%;
   background-color: grey; /* Colore di default */
+  transition: background-color 0.3s ease;
 }
 
 .status-light.green {
@@ -295,6 +290,75 @@ body {
 
 .status-light.blue {
   background-color: blue;
+}
+
+.websocket-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 1000; /* Assicurati che l'icona sia visibile sopra altri elementi */
+}
+
+.status-light {
+  width: 40px; /* Aumenta la dimensione */
+  height: 40px; /* Aumenta la dimensione */
+  border-radius: 50%;
+  background-color: grey; /* Colore di default */
+  transition: background-color 0.3s ease;
+}
+
+.status-light.green {
+  background-color: green;
+}
+
+.status-light.red {
+  background-color: red;
+}
+
+.status-light.blue {
+  background-color: blue;
+}
+
+.websocket-container {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  z-index: 1000; /* Assicurati che l'icona sia visibile sopra altri elementi */
+}
+
+.status-light {
+  width: 40px; /* Aumenta la dimensione */
+  height: 40px; /* Aumenta la dimensione */
+  border-radius: 50%;
+  background-color: grey; /* Colore di default */
+  transition: background-color 0.3s ease;
+}
+
+.status-light.green {
+  background-color: green;
+}
+
+.status-light.red {
+  background-color: red;
+}
+
+.status-light.blue {
+  background-color: blue;
+}
+
+.websocket-message {
+  display: none; /* Nascondi il messaggio per impostazione predefinita */
+  margin-left: 10px;
+  color: black;
+  font-size: 16px;
+}
+
+.websocket-container:hover .websocket-message {
+  display: block; /* Mostra il messaggio solo al passaggio del mouse */
 }
 
 .spinner {

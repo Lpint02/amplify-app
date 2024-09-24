@@ -349,9 +349,9 @@ function App() {
         </>
       )}
 
-    <div className="websocket-status">
+    <div className="websocket-container">
         <div className={`status-light ${getStatusClass()}`}></div>
-        <span>{webSocketMessage}</span>
+        <div className='websocket-message'>{webSocketMessage}</div>
       </div>
     </div>
   );
