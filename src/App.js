@@ -262,7 +262,10 @@ function App() {
   return (
     <div className="uploader-container">
       <div className="title-container">
-        <h2 onClick={togglePopup} style={{ cursor: 'pointer' }}>Centro di Calcolo per Elaborazioni Matematiche</h2>
+        <h2>Risolutore per Sistemi di Equazioni Lineari di Grandi Dimensioni</h2>
+        <button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}>      
+          <i className="fas fa-info-circle info-icon"></i>
+         </button> 
       </div>
 
       {isPopupOpen && (
@@ -293,7 +296,7 @@ function App() {
         {file ? (
           <p>{file.name}</p>
         ) : (
-          <p>Dimensione massima: 125MB. </p>
+          <p>Trascina qui il tuo file .txt di input. Dimensione massima: 125MB.</p>
         )}
         <input
           type="file"
