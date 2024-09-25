@@ -296,7 +296,7 @@ function App() {
         {file ? (
           <p>{file.name}</p>
         ) : (
-          <p>Trascina qui il tuo file .txt di input. Dimensione massima: 125MB.</p>
+          <p>Trascina qui il tuo file di input. Dimensione massima: 125MB.</p>
         )}
         <input
           type="file"
