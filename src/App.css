@@ -22,7 +22,7 @@ button {
   padding: 20px 40px; 
   margin: 20px; 
   font-size: 24px; 
-  background-color: #115ea7; 
+  background-color: black; 
   border: none; 
   color: #ffffff; 
   cursor: pointer; 
@@ -32,7 +32,7 @@ button {
 } 
  
 button:hover { 
-  background-color: #4185c5;
+  background-color: #776b6b;
   transform: translateY(-3px); 
   box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2); 
 } 
@@ -53,7 +53,7 @@ button:hover {
 }
 
 .title {
-  color: #115ea7;
+  color: black;
   margin-bottom: 20px;
 }
 
@@ -79,20 +79,19 @@ button:hover {
 }
 
 
-
 .dropzone.dragging {
   background-color: #ffffff;
-  border-color: #115ea7;
+  border-color: black;
 }
 
 .dropzone p {
-  color: #888888;
+  color: #776b6b;
   font-size: 18px;
   margin: 0;
 }
 
 .btn {
-  background-color: #115ea7;
+  background-color: black;
   color: #ffffff;
   border: none;
   padding: 15px 30px;
@@ -126,15 +125,11 @@ body {
 
 .title-container h2 {
   margin-right: 10px;
-  color: #115ea7;
+  color: black;
   font-size: 28px; 
   margin-bottom: 20px;
   text-align: center;
   transition: text-decoration 0.3s;
-}
-
-.title-container h2:hover {
-  text-decoration: underline;
 }
 
 .info-icon {
@@ -186,7 +181,7 @@ body {
 
 .progress-bar {
   height: 100%;
-  background-color: #115ea7;
+  background-color: black;
   text-align: center;
   line-height: 30px; 
   color: white;
@@ -197,7 +192,7 @@ body {
 .files-title {
   font-size: 24px; 
   font-weight: bold;
-  color: #115ea7; 
+  color: black; 
   text-align: center;
   margin-bottom: 10px;
 }
