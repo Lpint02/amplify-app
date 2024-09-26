@@ -262,10 +262,12 @@ function App() {
   return (
     <div className="uploader-container">
       <div className="title-container">
-        <h2>Solver per Sistemi di Equazioni Lineari di Grandi Dimensioni</h2>
-        <button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}>      
-          <i className="fas fa-info-circle info-icon"></i>
-         </button> 
+        <h1 class="title">Solver per Sistemi di Equazioni Lineari di Grandi Dimensioni</h1>
+        <p class="subtitle">Per maggiori informazioni clicca qui 
+          <button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}>
+            <i className="fas fa-info-circle info-icon"></i>
+          </button> 
+        </p>
       </div>
 
       {isPopupOpen && (

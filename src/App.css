@@ -117,22 +117,24 @@ body {
 }
 
 .title-container {
+  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  margin: 0 auto;
   text-align: center;
 }
 
-.title-container h2 {
-  margin: 0;
-  color: black;
-  padding: 20px;
-  font-size: 48px; 
-  transition: all 0.3s ease;
+.title {
+  font-size: 2rem; 
+  white-space: normal; 
 }
 
+.subtitle {
+  font-size: 1.2rem; 
+  margin-top: 10px; 
+  color: #666; 
+}
 .info-icon {
+  margin-left: 10px;
   font-size: 1.5em;
   color: #007bff; 
 }
