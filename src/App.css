@@ -26,7 +26,7 @@ button {
   border: none; 
   color: #ffffff; 
   cursor: pointer; 
-  border-radius: 5px; 
+  border-radius: 20px; 
   transition: background-color 0.3s ease, transform 0.3s ease;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); 
 } 
@@ -59,7 +59,7 @@ button:hover {
 
 .uploader-container {
   max-width: 500px;
-  margin: 60px auto;
+  margin: 10px auto;
   text-align: center;
 }
 
@@ -95,7 +95,7 @@ button:hover {
   color: #ffffff;
   border: none;
   padding: 15px 30px;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
   transition: background-color 0.3s ease;
@@ -131,12 +131,11 @@ body {
 }
 
 .subtitle {
-  font-size: 1.2rem; 
-  margin-top: 10px; 
+  font-size: 1.2rem;  
   color: #666; 
 }
+
 .info-icon {
-  margin-left: 10px;
   font-size: 1.5em;
   box-shadow: none;
   color: #007bff; 
