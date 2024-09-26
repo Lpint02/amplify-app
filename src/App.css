@@ -63,7 +63,7 @@ button:hover {
 
 .dropzone {
   width: 100%;
-  max-width: 600px; 
+  max-width: 800px; 
   height: 200px; 
   border: 2px dashed #cccccc;
   border-radius: 10px;
@@ -149,7 +149,7 @@ body {
   color: #666; 
   display: flex;
   align-items: center;
-  gap: 3px; 
+  gap: 1px; 
 }
 
 .info-icon {
