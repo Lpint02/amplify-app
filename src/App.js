@@ -260,7 +260,7 @@ function App() {
   }, [success]);
 
   return (
-    <div className="uploader-container">
+    <div className="App">
       <div className="title-container">
         <h1 class="title">Solver per Sistemi di Equazioni Lineari di Grandi Dimensioni</h1>
       </div>
@@ -290,7 +290,7 @@ function App() {
           </div>
         </div>
       )}
-    
+      <div className="uploader-container">
       <div
         className={`dropzone ${isDragging ? 'dragging' : ''}`}
         onDragOver={handleDragOver}
@@ -358,8 +358,9 @@ function App() {
     <div className="websocket-container">
         <div className={`status-light ${getStatusClass()}`}></div>
         <div className='websocket-message'>{webSocketMessage}</div>
-      </div>
     </div>
+  </div>
+</div>
   );
 };
 
