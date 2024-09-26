@@ -294,7 +294,7 @@ function App() {
         {file ? (
           <p>{file.name}</p>
         ) : (
-          <p style={{ fontSize: '25px'}}>Trascina qui il tuo file di input. Per maggiori informazioni clicca qui<button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none',  boxShadow: 'none' }}>
+          <p>Trascina qui il tuo file di input. Per maggiori informazioni clicca qui<button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none',  boxShadow: 'none', marginLeft: '-10px' }}>
           <i className="fas fa-info-circle info-icon"></i>
         </button></p>
         )}
