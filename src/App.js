@@ -53,7 +53,7 @@ function App() {
         const startTime = Date.now(); 
         const timerId = setInterval(() => {
         const elapsed = Math.floor((Date.now() - startTime) / 1000); 
-        setWebSocketMessage(`Connessione attiva da ${elapsed} secondi.`);
+        setWebSocketMessage(`Connessione WebSocket attiva da ${elapsed} secondi.`);
       }, 1000); 
 
       // Timeout per scadenza connessione

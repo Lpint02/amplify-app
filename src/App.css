@@ -56,15 +56,15 @@ button:hover {
 }
 
 .uploader-container {
-  max-width: 600px;
+  max-width: 650px;
   margin: 10px auto;
   text-align: center;
 }
 
 .dropzone {
   width: 100%; 
-  height: 300px; 
-  border: 2px dashed #cccccc;
+  height: 250px; 
+  border: 4px dashed #cccccc;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -78,7 +78,7 @@ button:hover {
 
 .dropzone.dragging {
   background-color: #ffffff;
-  border-color: black;
+  border: 7px dashed black;
 }
 
 .dropzone p {
