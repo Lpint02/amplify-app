@@ -264,18 +264,11 @@ function App() {
       <div className="title-container">
         <h1 class="title">Solver per Sistemi di Equazioni Lineari di Grandi Dimensioni</h1>
       </div>
-      <div className="subtitle-container">
-        <p class="subtitle">Per maggiori informazioni clicca qui 
-          <button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0, boxShadow: 'none' }}>
-            <i className="fas fa-info-circle info-icon"></i>
-          </button> 
-        </p>
-      </div>
+
 
       {isPopupOpen && (
         <div className="popup-overlay">
           <div className="popup-content">
-            <button className="popup-close" onClick={togglePopup}>X</button>
             <h2>Informazioni sul formato corretto del file</h2>
             <p>
               Questa applicazione web restituisce il vettore soluzione x del sistema 𝐴𝑥=𝑏. Per garantire che il file venga elaborato correttamente, assicurati che il file soddisfi le seguenti caratteristiche: <br />
@@ -287,6 +280,7 @@ function App() {
               6. La dimensione massima del file è 125 MB. <br />
               Se hai bisogno di assistenza per generare la matrice, consulta il codice disponibile nella repo GitHub.<br />
             </p>
+            <button className="popup-close" onClick={togglePopup}>X</button>
           </div>
         </div>
       )}
@@ -300,7 +294,9 @@ function App() {
         {file ? (
           <p>{file.name}</p>
         ) : (
-          <p>Trascina qui il tuo file di input. Dimensione massima: 125MB.</p>
+          <p>Trascina qui il tuo file di input. Per maggiori informazioni clicca qui  <button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0, boxShadow: 'none' }}>
+          <i className="fas fa-info-circle info-icon"></i>
+        </button></p>
         )}
         <input
           type="file"
