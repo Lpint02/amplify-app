@@ -258,6 +258,7 @@ body {
 
 .semaforo-container {
   display: flex;
+  justify-content: center;
   align-items: center;
 }
 
