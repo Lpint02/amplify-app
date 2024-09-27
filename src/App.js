@@ -292,7 +292,7 @@ function App() {
         onDrop={handleDrop}
       >
         {file ? (
-          <p>{file.name}</p>
+          <p style={{fontSize:'1.6em'}}>{file.name}</p>
         ) : (
           <p style={{fontSize:'1.6em'}}>Trascina qui il tuo file di input. Per maggiori informazioni clicca qui<button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none',  boxShadow: 'none', marginLeft: '-15px' }}>
           <i className="fas fa-info-circle info-icon"></i>
