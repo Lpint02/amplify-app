@@ -341,7 +341,9 @@ function App() {
                 <tr key={index}>
                   <td>{uploadedFile.name}</td>
                   <td className="semaforo-container">{uploadedFile.status}
-                    <span> <i className={`fas fa-circle semaforo ${uploadedFile.color}`}></i></span>
+                    <span> 
+                    <i className={`fas fa-circle semaforo ${uploadedFile.color}`} style={{ display: 'block' }}></i>
+                    </span>
                   </td>
                 </tr>
               ))}
