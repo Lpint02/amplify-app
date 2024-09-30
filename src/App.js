@@ -285,26 +285,27 @@ function App() {
         </div>
       )}
       <div className="uploader-container">
-      <div
-        className={`dropzone ${isDragging ? 'dragging' : ''}`}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        {file ? (
-          <p style={{fontSize:'1.6em'}}>{file.name}</p>
-        ) : (
-          <p style={{fontSize:'1.6em'}}>Trascina qui il tuo file di input. Per maggiori informazioni clicca qui<button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none',  boxShadow: 'none', marginLeft: '-15px' }}>
-          <i className="fas fa-info-circle info-icon"></i>
-        </button></p>
-        )}
-        <input
-          type="file"
-          onChange={handleFileSelect}
-          style={{ display: 'none' }}
-          id="fileInput"
-          disabled={!IsConnected}
-        />
+        <div
+          className={`dropzone ${isDragging ? 'dragging' : ''}`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          {file ? (
+            <p style={{fontSize:'1.6em'}}>{file.name}</p>
+          ) : (
+            <p style={{fontSize:'1.6em'}}>Trascina qui il tuo file di input. Per maggiori informazioni clicca qui<button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none',  boxShadow: 'none', marginLeft: '-15px' }}>
+            <i className="fas fa-info-circle info-icon"></i>
+          </button></p>
+          )}
+          <input
+            type="file"
+            onChange={handleFileSelect}
+            style={{ display: 'none' }}
+            id="fileInput"
+            disabled={!IsConnected}
+          />
+        </div>
       </div>
       <button className="btn" onClick={() => document.getElementById('fileInput').click()} disabled={!IsConnected}>
         Seleziona File
@@ -349,16 +350,15 @@ function App() {
               ))}
             </tbody>
         </table>
-      </div>
+    </div>
         </>
       )}
-
+  
     <div className="websocket-container">
         <div className={`status-light ${getStatusClass()}`}></div>
         <div className='websocket-message'>{webSocketMessage}</div>
     </div>
   </div>
-</div>
   );
 };
 
