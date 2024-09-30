@@ -265,7 +265,6 @@ function App() {
         <h1 class="title">Solver per Sistemi di Equazioni Lineari di Grandi Dimensioni</h1>
       </div>
 
-
       {isPopupOpen && (
         <div className="popup-overlay">
           <div className="popup-content">
@@ -284,46 +283,55 @@ function App() {
           </div>
         </div>
       )}
-      <div className="uploader-container">
-      <div
-        className={`dropzone ${isDragging ? 'dragging' : ''}`}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        {file ? (
-          <p style={{fontSize:'1.6em'}}>{file.name}</p>
-        ) : (
-          <p style={{fontSize:'1.6em'}}>Trascina qui il tuo file di input. Per maggiori informazioni clicca qui<button onClick={togglePopup} style={{ cursor: 'pointer', background: 'none', border: 'none',  boxShadow: 'none', marginLeft: '-15px' }}>
-          <i className="fas fa-info-circle info-icon"></i>
-        </button></p>
-        )}
-        <input
-          type="file"
-          onChange={handleFileSelect}
-          style={{ display: 'none' }}
-          id="fileInput"
-          disabled={!IsConnected}
-        />
-      </div>
-      <button className="btn" onClick={() => document.getElementById('fileInput').click()} disabled={!IsConnected}>
-        Seleziona File
-      </button>
-      <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }} disabled={!IsConnected}>
-        Carica File
-      </button>
 
-      
-      {uploadProgress > 0 && (
-        <div className="progress-container">
-          <div className="progress-bar" style={{ width: `${uploadProgress}%` }}>
-            {uploadProgress}%
+      <div className="centered-container">
+        <div className="uploader-container">
+          <div
+            className={`dropzone ${isDragging ? 'dragging' : ''}`}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            onDrop={handleDrop}
+          >
+            {file ? (
+              <p style={{fontSize:'1.6em'}}>{file.name}</p>
+            ) : (
+              <p style={{fontSize:'1.6em'}}>
+                Trascina qui il tuo file di input. Per maggiori informazioni clicca qui
+                <button
+                  onClick={togglePopup} 
+                  style={{ cursor: 'pointer', background: 'none', border: 'none',  boxShadow: 'none', marginLeft: '-15px' }}
+                >
+                  <i className="fas fa-info-circle info-icon"></i>
+                </button>
+              </p>
+            )}
+            <input
+              type="file"
+              onChange={handleFileSelect}
+              style={{ display: 'none' }}
+              id="fileInput"
+              disabled={!IsConnected}
+            />
           </div>
-        </div>
-      )}
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {success && <p style={{ color: 'green' }}>Caricamento completato con successo resta in attesa!</p>}
+          <button className="btn" onClick={() => document.getElementById('fileInput').click()} disabled={!IsConnected}>
+            Seleziona File
+          </button>
+          <button className="btn" onClick={uploadFile} style={{ marginLeft: '10px' }} disabled={!IsConnected}>
+            Carica File
+          </button>
+      
+          {uploadProgress > 0 && (
+            <div className="progress-container">
+              <div className="progress-bar" style={{ width: `${uploadProgress}%` }}>
+                {uploadProgress}%
+              </div>
+            </div>
+          )}
+
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        {success && <p style={{ color: 'green' }}>Caricamento completato con successo resta in attesa!</p>}
+      </div>
 
       {uploadedFiles.length > 0 && (
         <>
@@ -334,31 +342,33 @@ function App() {
                 <tr>
                   <th>Nome del file</th>
                   <th>Stato</th>
-              </tr>
-            </thead>
-            <tbody>
-              {uploadedFiles.map((uploadedFile, index) => (
-                <tr key={index}>
-                  <td>{uploadedFile.name}</td>
-                  <td className="semaforo-container">{uploadedFile.status}
+                </tr>
+              </thead>
+              <tbody>
+                {uploadedFiles.map((uploadedFile, index) => (
+                  <tr key={index}>
+                    <td>{uploadedFile.name}</td>
+                    <td className="semaforo-container">
+                      {uploadedFile.status}
                     <span> 
-                    <i className={`fas fa-circle semaforo ${uploadedFile.color}`} style={{ display: 'block' }}></i>
+                      <i className={`fas fa-circle semaforo ${uploadedFile.color}`} style={{ display: 'block' }}></i>
                     </span>
                   </td>
                 </tr>
               ))}
             </tbody>
-        </table>
-      </div>
-        </>
-      )}
+          </table>
+        </div>
+      </>
+    )}
+  </div>
+
 
     <div className="websocket-container">
         <div className={`status-light ${getStatusClass()}`}></div>
         <div className='websocket-message'>{webSocketMessage}</div>
     </div>
   </div>
-</div>
   );
 };
 

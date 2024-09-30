@@ -42,6 +42,15 @@ button:hover {
   margin-bottom: 20px;
 }
 
+.centered-container {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+  margin-top: -50px; 
+}
+
 .uploader-container {
   max-width: 800px;
   margin: 10px auto;
