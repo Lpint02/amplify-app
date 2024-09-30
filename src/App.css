@@ -48,6 +48,7 @@ button:hover {
   justify-content: center; 
   align-items: center; 
   height: 75vh;
+  padding-top: 5%;
 }
 
 .uploader-container {
