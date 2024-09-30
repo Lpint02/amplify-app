@@ -1,10 +1,13 @@
 
 .App {
   display: flex;
+  flex-direction: column; 
   justify-content: center; 
   align-items: center; 
-  height: 100vh;
-}/*
+  height: 100vh; 
+  text-align: center; 
+}
+/*
 .App-header {
   background-color: #fffeef;
   min-height: 100vh;
