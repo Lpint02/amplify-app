@@ -4,7 +4,7 @@
 }
  
 button { 
-  padding: 20px 40px; 
+  padding: 20px 20px; 
   margin: 20px;
   font-size: 24px; 
   background-color: black; 
@@ -305,10 +305,9 @@ body {
 }
 
 .status-light {
-  width: 40px; /* Aumenta la dimensione */
-  height: 40px; /* Aumenta la dimensione */
+  width: 60px; 
+  height: 60px; 
   border-radius: 50%;
-  background-color: grey; /* Colore di default */
   transition: background-color 0.3s ease;
 }
 
