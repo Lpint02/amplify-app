@@ -59,8 +59,8 @@ button:hover {
 }
 
 .dropzone {
-  width: 600px; 
-  height: 250px; 
+  width: 700px; 
+  height: 400px; 
   border: 4px dashed #cccccc;
   border-radius: 10px;
   display: flex;
