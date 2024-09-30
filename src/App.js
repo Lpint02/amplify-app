@@ -331,7 +331,7 @@ function App() {
 
         {error && <p style={{ color: 'red' }}>{error}</p>}
         {success && <p style={{ color: 'green' }}>Caricamento completato con successo resta in attesa!</p>}
-      </div>
+      
 
       {uploadedFiles.length > 0 && (
         <>
@@ -361,6 +361,7 @@ function App() {
         </div>
       </>
     )}
+    </div>
   </div>
 
 
