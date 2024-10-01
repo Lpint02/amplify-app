@@ -224,7 +224,7 @@ function App() {
       // Aggiungi il file con stato "In attesa" 
       setUploadedFiles(prevFiles => [
         ...prevFiles,
-        { name: file.name, status: 'Caricamento avvenuto. Elaborazione in corso....', color: 'blue' } 
+        { name: file.name, status: 'Caricamento completo. Elaborazione in corso....', color: 'blue' } 
       ]);
       setSuccess(true);
       setFile(null); // Resetta il file
