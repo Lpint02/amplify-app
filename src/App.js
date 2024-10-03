@@ -82,7 +82,7 @@ function App() {
         setUploadedFiles(prevFiles =>
           prevFiles.map(uploadedFile =>
             uploadedFile.name === data.file
-              ? { ...uploadedFile, status: `Elaborazione completata in ${data.time.toFixed(6)} secondi`, color: 'green' } //devo capire come far stampare il tempo
+              ? { ...uploadedFile, status: `Elaborazione completata in ${data.time.toFixed(4)} secondi`, color: 'green' } //devo capire come far stampare il tempo
               : uploadedFile
           )
         );
