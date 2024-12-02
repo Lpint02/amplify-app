@@ -263,7 +263,10 @@ function App() {
     <div className="App">
       <div className="centered-container">
         <div className="title-container">
-          <h1 class="title">Solver per Sistemi di Equazioni Lineari di Grandi Dimensioni</h1>
+          <h1 class="title">Solver per Sistemi di Equazioni Lineari di Grandi Dimensioni </h1>
+          <h2 class="subtitle">Adesso non funziona perchè ho tolto il secret mqAccess con il seguente valore chiave/valore:</h2>
+          username Lpint02
+          password Pr...ale88!
         </div>
 
         {isPopupOpen && (
